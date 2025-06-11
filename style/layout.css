@@ -1,23 +1,37 @@
-/* style/layout.css */
-
-/* 1. Контейнер для карты и панели */
+/* Центрируем карту и панель */
 .app-container {
   display: flex;
-  justify-content: center;   /* центрируем по горизонтали */
-  align-items: flex-start;   /* выравнивание по верхнему краю */
-  gap: 20px;                  /* промежуток между картой и панелью */
-  padding: 20px;              /* отступы от краёв окна */
+  justify-content: center;
+  align-items: stretch;   /* растягиваем по высоте самой высокой колонке */
+  gap: 20px;
+  padding: 20px;
   box-sizing: border-box;
 }
 
-/* 2. Собственно карта */
+/* Карта */
 #map {
   position: relative;
-  width: 70vw;                /* 70% ширины окна */
-  max-width: 700px;           /* но не шире 700px */
-  aspect-ratio: 16 / 9;       /* сохраняем соотношение сторон */
+  width: 70vw;
+  max-width: 700px;
+  aspect-ratio: 16/9;
   background: url('../assets/map.png') center/cover no-repeat;
   overflow: hidden;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+/* Оверлей */
+#overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 5;
+}
+#overlay.visible {
+  opacity: 1;
+  pointer-events: all;
 }
