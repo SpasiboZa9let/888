@@ -1,20 +1,10 @@
-/* Метка на карте */
 .marker {
+  width: 24px;
+  height: 24px;
+  background-image: url(/assets/pin.png);
+  background-size: contain;
+  background-repeat: no-repeat;
   position: absolute;
-  z-index: 2; /* поверх фоновой карты */
-  width: 32px;
-  height: 32px;
-  background: url('../assets/pin.png') center/contain no-repeat;
-  transform: translate(-50%, -100%);
+  z-index: 10;
   cursor: pointer;
-  /* постоянное мягкое жёлтое свечение */
-  filter: drop-shadow(0 0 6px rgba(255, 255, 0, 0.6));
-  transition: transform 0.2s, filter 0.2s;
-}
-
-.marker:hover {
-  /* при наведении чуть увеличиваем и усиливаем свечение */
-  transform: translate(-50%, -100%) scale(1.2);
-  filter: drop-shadow(0 0 12px rgba(255, 255, 0, 0.9));
-  z-index: 3;
 }
