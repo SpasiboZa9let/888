@@ -1,15 +1,18 @@
-/* style/base.css */
-
-/* Сброс и базовые стили */
+/* Сброс отступов и базовые стили */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 body {
   font-family: Arial, sans-serif;
-  overflow-x: hidden;
   background-color: #f5f5f5;
   color: #333;
 }
-
+button.close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
