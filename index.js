@@ -1,1 +1,32 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Карта воспоминаний</title>
+
+  <!-- Подключаем CSS-модули -->
+  <link rel="stylesheet" href="style/base.css">
+  <link rel="stylesheet" href="style/layout.css">
+  <link rel="stylesheet" href="style/marker.css">
+  <link rel="stylesheet" href="style/panel.css">
+  <link rel="stylesheet" href="style/animations.css">
+  <link rel="stylesheet" href="style/responsive.css">
+</head>
+<body>
+  <!-- Контейнер карты -->
+  <div id="map"></div>
+
+  <!-- Панель воспоминаний -->
+  <div id="memory-panel">
+    <span class="close">&times;</span>
+    <img src="" alt="Воспоминание">
+    <div class="text"></div>
+  </div>
+
+  <!-- Точка входа JS (ES-модули) -->
+  <script type="module" src="src/index.js"></script>
+</body>
+</html>
 
