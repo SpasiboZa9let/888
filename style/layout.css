@@ -1,14 +1,13 @@
-/* Центрируем карту и панель */
+/* style/layout.css */
 .app-container {
   display: flex;
   justify-content: center;
-  align-items: stretch;   /* растягиваем по высоте самой высокой колонке */
+  align-items: stretch;
   gap: 20px;
   padding: 20px;
   box-sizing: border-box;
 }
 
-/* Карта */
 #map {
   position: relative;
   width: 70vw;
@@ -20,7 +19,7 @@
   border-radius: 4px;
 }
 
-/* Оверлей */
+/* Оверлей для затемнения */
 #overlay {
   position: fixed;
   top: 0; left: 0;
