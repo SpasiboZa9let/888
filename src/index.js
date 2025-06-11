@@ -7,18 +7,21 @@ import { startSmall, stopSmall } from './animations/emojiSmall.js';
 import { startLarge, stopLarge } from './animations/emojiLarge.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Для отладки: убедимся, что маркеры подгрузились
+  console.log('MARKERS:', MARKERS);
+
   // Инициализируем панель воспоминаний
   const panel = new MemoryPanel('#memory-panel');
 
   // Рендерим маркеры на карте и привязываем к ним панель
-  new MapRenderer('#map', MARKERS, panel);
+  const renderer = new MapRenderer('#map', MARKERS, panel);
+  console.log('Rendered markers:', renderer);
 
   // Запускаем анимации эмодзи
   startSmall();
   startLarge();
 
-  // При желании можно остановить анимации так:
+  // При необходимости остановки
   // stopSmall();
   // stopLarge();
 });
-
