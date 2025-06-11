@@ -1,3 +1,4 @@
+// src/components/MemoryPanel.js
 import { qs } from '../utils/dom.js';
 
 export default class MemoryPanel {
@@ -5,25 +6,25 @@ export default class MemoryPanel {
     this.panelEl  = qs(selector);
     this.imgEl    = qs('img', this.panelEl);
     this.textEl   = qs('.text', this.panelEl);
-    this.closeBtn = qs('.close', this.panelEl);
-    this.overlay  = document.getElementById('overlay');
+    this.overlay  = qs('#overlay');
 
-    this.closeBtn.addEventListener('click', () => this.hide());
-    this.overlay.addEventListener('click', () => this.hide());
+    // у нас больше не нужен крестик-клик, но можно всё оставить
+    const closeBtn = qs('.close', this.panelEl);
+    closeBtn?.addEventListener('click', () => this.hide());
+    this.overlay?.addEventListener('click', () => this.hide());
   }
 
   show({ img, text }) {
-    // гарантируем корректный путь
-    this.imgEl.src = img.startsWith('./') ? img : `./${img}`;
-    this.imgEl.alt = text;
+    this.imgEl.src   = img.startsWith('./') ? img : `./${img}`;
+    this.imgEl.alt   = text;
     this.textEl.textContent = text;
 
-    this.overlay.classList.add('visible');
+    this.overlay?.classList.add('visible');
     this.panelEl.classList.add('visible');
   }
 
   hide() {
-    this.overlay.classList.remove('visible');
+    this.overlay?.classList.remove('visible');
     this.panelEl.classList.remove('visible');
   }
 }
