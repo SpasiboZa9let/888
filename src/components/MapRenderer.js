@@ -3,8 +3,8 @@ import { qs } from '../utils/dom.js';
 
 export default class MapRenderer {
   /**
-   * @param {string} mapSelector — селектор контейнера карты (например '#map')
-   * @param {Array<{x:number,y:number,img:string,text:string}>} markers
+   * @param {string} mapSelector — селектор контейнера карты, e.g. '#map'
+   * @param {Array<{x:number,y:number,img:string,text:string}>} markers — данные точек
    * @param {MemoryPanel} panel — панель для показа воспоминания
    */
   constructor(mapSelector, markers, panel) {
@@ -12,12 +12,16 @@ export default class MapRenderer {
     this.markers = markers;
     this.panel   = panel;
 
+    // Всегда привязываемся к ресайзу, чтобы маркеры правильно позиционировались
+    this._onResize = this._renderMarkers.bind(this);
+    window.addEventListener('resize', this._onResize);
+
+    // Первая отрисовка
     this._renderMarkers();
-    window.addEventListener('resize', () => this._renderMarkers());
   }
 
   _renderMarkers() {
-    // Удаляем все старые маркеры
+    // Удаляем старые
     this.mapEl.querySelectorAll('.marker').forEach(el => el.remove());
 
     const { width, height } = this.mapEl.getBoundingClientRect();
@@ -28,11 +32,16 @@ export default class MapRenderer {
       el.style.left = `${data.x * width}px`;
       el.style.top  = `${data.y * height}px`;
 
-      // Показываем панель по hover и скрываем при уходе курсора
+      // Появление/скрытие панели по наведению
       el.addEventListener('mouseenter', () => this.panel.show(data));
       el.addEventListener('mouseleave', () => this.panel.hide());
 
       this.mapEl.appendChild(el);
     });
+  }
+
+  // Если нужно, можно отключить ресайз-слушатель
+  destroy() {
+    window.removeEventListener('resize', this._onResize);
   }
 }
