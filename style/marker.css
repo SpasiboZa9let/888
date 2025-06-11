@@ -1,8 +1,7 @@
-/* style/marker.css */
-
+/* Метка на карте */
 .marker {
   position: absolute;
-  z-index: 2;               /* выше уровня карты */
+  z-index: 2; /* поверх фоновой карты */
   width: 32px;
   height: 32px;
   background: url('../assets/pin.png') center/contain no-repeat;
@@ -17,5 +16,5 @@
   /* при наведении чуть увеличиваем и усиливаем свечение */
   transform: translate(-50%, -100%) scale(1.2);
   filter: drop-shadow(0 0 12px rgba(255, 255, 0, 0.9));
-  /* z-index можно не менять, он уже выше карты */
+  z-index: 3;
 }
