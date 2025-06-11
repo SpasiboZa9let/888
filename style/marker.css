@@ -1,4 +1,5 @@
-/* Метка на карте */
+/* style/marker.css */
+
 .marker {
   position: absolute;
   width: 32px;
@@ -6,9 +7,15 @@
   background: url('../assets/pin.png') center/contain no-repeat;
   transform: translate(-50%, -100%);
   cursor: pointer;
-  transition: transform .2s;
+  /* постоянное жёлтое свечение вокруг маркера */
+  filter: drop-shadow(0 0 6px rgba(255, 255, 0, 0.6));
+  transition: transform 0.2s, filter 0.2s;
   z-index: 1;
 }
+
 .marker:hover {
+  /* при наведении чуть увеличиваем масштаб, свечение усиливаем */
   transform: translate(-50%, -100%) scale(1.2);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 0, 0.8));
+  z-index: 10;
 }
