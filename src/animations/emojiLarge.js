@@ -1,9 +1,7 @@
 // src/animations/emojiLarge.js
 import { createEl, randomBetween } from '../utils/dom.js';
-
 let intervalIdLarge = null;
 
-/** Запускает генерацию и анимацию больших эмодзи */
 export function startLarge() {
   if (intervalIdLarge !== null) return;
   intervalIdLarge = setInterval(() => {
@@ -14,7 +12,6 @@ export function startLarge() {
   }, 2500);
 }
 
-/** Останавливает генерацию больших эмодзи */
 export function stopLarge() {
   clearInterval(intervalIdLarge);
   intervalIdLarge = null;
