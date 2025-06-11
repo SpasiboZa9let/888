@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  …
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Карта воспоминаний</title>
+  <!-- Порядок подключения важен -->
   <link rel="stylesheet" href="style/base.css">
   <link rel="stylesheet" href="style/layout.css">
   <link rel="stylesheet" href="style/marker.css">
   <link rel="stylesheet" href="style/panel.css">
-  <!-- добавили обратно -->
-  <link rel="stylesheet" href="style/animations.css">
 </head>
 <body>
-  <div id="overlay"></div>
   <div class="app-container">
     <div id="map"></div>
-    <div id="memory-panel">…</div>
+    <div id="memory-panel">
+      <img src="" alt="Фото воспоминания">
+      <div class="text"></div>
+    </div>
   </div>
 
   <script type="module" src="src/index.js"></script>
