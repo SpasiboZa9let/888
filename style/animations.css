@@ -1,19 +1,20 @@
-/* Для эмодзи (опционально) */
 @keyframes float-up {
-  0%   { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-100vh); opacity: 0; }
+  from { transform: translateY(100vh); opacity: 1; }
+  to   { transform: translateY(-10vh);  opacity: 0; }
 }
+
 .emoji-small {
   position: fixed;
   bottom: 0;
   font-size: 1.2rem;
-  animation: float-up 5s linear forwards;
+  animation: float-up 5s linear infinite;
   pointer-events: none;
 }
+
 .emoji-large {
   position: fixed;
   bottom: 0;
   font-size: 2rem;
-  animation: float-up 6s linear forwards;
+  animation: float-up 6s linear infinite;
   pointer-events: none;
 }
