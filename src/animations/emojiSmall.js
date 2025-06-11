@@ -1,30 +1,12 @@
-// src/animations/emojiSmall.js
-import { createEl, randomBetween } from '../utils/dom.js';
-let intervalIdSmall = null;
+const EMOJIS = ['😊', '🌟', '☀️', '🍃', '💧'];
 
-export function startSmall() {
-  if (intervalIdSmall !== null) return;
-  intervalIdSmall = setInterval(() => {
-    const emoji = createEl('div', { className: 'emoji-small' });
-    emoji.textContent = getRandomEmoji();
-    document.body.appendChild(emoji);
-    animate(emoji, 5000, 'float');
+export function startEmojiSmall() {
+  setInterval(() => {
+    const el = document.createElement('div');
+    el.className = 'emoji-small';
+    el.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    el.style.left = `${Math.random() * 100}vw`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5000);
   }, 3000);
-}
-
-export function stopSmall() {
-  clearInterval(intervalIdSmall);
-  intervalIdSmall = null;
-}
-
-function getRandomEmoji() {
-  const list = ['🙂','😊','😎','😍','🤔','🎉'];
-  return list[Math.floor(Math.random() * list.length)];
-}
-
-function animate(el, duration, floatClass) {
-  const startX = randomBetween(0, window.innerWidth);
-  el.style.left = `${startX}px`;
-  requestAnimationFrame(() => el.classList.add(floatClass));
-  setTimeout(() => el.remove(), duration);
 }
