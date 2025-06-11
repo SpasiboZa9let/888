@@ -1,9 +1,7 @@
 // src/animations/emojiSmall.js
 import { createEl, randomBetween } from '../utils/dom.js';
-
 let intervalIdSmall = null;
 
-/** Запускает генерацию и анимацию маленьких эмодзи */
 export function startSmall() {
   if (intervalIdSmall !== null) return;
   intervalIdSmall = setInterval(() => {
@@ -14,7 +12,6 @@ export function startSmall() {
   }, 3000);
 }
 
-/** Останавливает генерацию маленьких эмодзи */
 export function stopSmall() {
   clearInterval(intervalIdSmall);
   intervalIdSmall = null;
