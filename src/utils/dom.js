@@ -1,6 +1,4 @@
-export function qs(selector, parent = document) {
-  return parent.querySelector(selector);
-}
-export function qsa(selector, parent = document) {
-  return Array.from(parent.querySelectorAll(selector));
+// Утилиты для querySelector
+export function qs(sel, parent = document) {
+  return parent.querySelector(sel);
 }
