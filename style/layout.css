@@ -1,6 +1,4 @@
-/* style/layout.css */
-
-/* Центрируем карту и панель */
+/* Центрируем контейнер */
 .app-container {
   display: flex;
   justify-content: center;
@@ -10,16 +8,16 @@
   box-sizing: border-box;
 }
 
-/* Фиксированный размер карты + отключение зума */
+/* Карта фиксированного размера, без зума */
 #map {
   position: relative;
-  z-index: 1;               /* создаём контекст ниже маркеров */
+  z-index: 1;
   width: 800px;
-  height: 450px;
+  height: 450px;             /* 16:9 */
   max-width: 100%;
   background: url('../assets/map.png') center/cover no-repeat;
   overflow: hidden;
   border: 1px solid #ddd;
   border-radius: 4px;
-  touch-action: pan-x pan-y;
+  touch-action: none;        /* отключаем жесты масштабирования */
 }
