@@ -1,3 +1,4 @@
+// src/components/MapRenderer.js
 import { qs } from '../utils/dom.js';
 
 export default class MapRenderer {
@@ -10,8 +11,9 @@ export default class MapRenderer {
   }
 
   _renderMarkers() {
-    // Очистить старые
-    this.mapEl.querySelectorAll('.marker').forEach(m => m.remove());
+    // Убираем старые
+    this.mapEl.querySelectorAll('.marker').forEach(el => el.remove());
+
     const { width, height } = this.mapEl.getBoundingClientRect();
 
     this.markers.forEach(data => {
@@ -19,7 +21,11 @@ export default class MapRenderer {
       el.className = 'marker';
       el.style.left = `${data.x * width}px`;
       el.style.top  = `${data.y * height}px`;
-      el.addEventListener('click', () => this.panel.show(data));
+
+      // Открываем панель по hover
+      el.addEventListener('mouseenter', () => this.panel.show(data));
+      el.addEventListener('mouseleave', () => this.panel.hide());
+
       this.mapEl.appendChild(el);
     });
   }
