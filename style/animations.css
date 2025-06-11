@@ -1,1 +1,32 @@
+/* style/animations.css */
+
+/* Общие анимации эмодзи */
+.emoji-small,
+.emoji-large {
+  position: absolute;
+  bottom: -50px;
+  opacity: 0;
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+/* Маленькие эмодзи */
+.emoji-small {
+  font-size: 20px;
+  transition: transform 5s linear, opacity 5s ease-in-out;
+}
+.emoji-small.float {
+  transform: translateY(-110vh) scale(0.8);
+  opacity: 1;
+}
+
+/* Большие эмодзи */
+.emoji-large {
+  font-size: 36px;
+  transition: transform 6s linear, opacity 6s ease-in-out;
+}
+.emoji-large.float-large {
+  transform: translateY(-110vh) scale(1.2);
+  opacity: 1;
+}
 
