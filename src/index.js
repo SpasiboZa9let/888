@@ -1,14 +1,9 @@
-import { MARKERS }           from './data/markers.js';
-import MapRenderer           from './components/MapRenderer.js';
-import MemoryPanel           from './components/MemoryPanel.js';
-import { startEmojiSmall }   from './animations/emojiSmall.js';
-import { startEmojiLarge }   from './animations/emojiLarge.js';
+import { MARKERS } from './data/markers.js';
+import MapRenderer  from './components/MapRenderer.js';
+import MemoryPanel  from './components/MemoryPanel.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // создаём панель и сразу передаём её в рендерер карты
   const panel = new MemoryPanel('#memory-panel');
   new MapRenderer('#map', MARKERS, panel);
-
-  // эти вызовы — без них смайлики не появятся
-  startEmojiSmall();
-  startEmojiLarge();
 });
