@@ -1,16 +1,24 @@
 #memory-panel {
   position: relative;
   width: 320px;
-  /* высота автоматически совпадёт с высотой app-container (который равен высоте карты) */
   background-color: #fff;
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  transform: translateX(100%);    /* прячем вправо за собственную ширину */
+  transform: translateX(100%);
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  padding: 16px;
 }
-
 #memory-panel.visible {
-  transform: translateX(0);       /* панель заезжает на место */
+  transform: translateX(0);
+}
+#memory-panel img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+#memory-panel .text {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
