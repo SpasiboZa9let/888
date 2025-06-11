@@ -1,19 +1,22 @@
-/* Контейнер для карты и панели */
+/* style/layout.css */
+
+/* 1. Контейнер для карты и панели */
 .app-container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 20px;
+  justify-content: center;   /* центрируем по горизонтали */
+  align-items: flex-start;   /* выравнивание по верхнему краю */
+  gap: 20px;                  /* промежуток между картой и панелью */
+  padding: 20px;              /* отступы от краёв окна */
+  box-sizing: border-box;
 }
 
-/* Собственно карта */
+/* 2. Собственно карта */
 #map {
   position: relative;
-  width: 800px;
-  max-width: 100%;
-  aspect-ratio: 16 / 9;
-  background: url('../assets/map-background.png') center/cover no-repeat;
+  width: 70vw;                /* 70% ширины окна */
+  max-width: 700px;           /* но не шире 700px */
+  aspect-ratio: 16 / 9;       /* сохраняем соотношение сторон */
+  background: url('../assets/map.png') center/cover no-repeat;
   overflow: hidden;
   border: 1px solid #ddd;
   border-radius: 4px;
