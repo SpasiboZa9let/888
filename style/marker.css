@@ -4,7 +4,7 @@
   position: absolute;
   width: 32px;
   height: 32px;
-  background: url('../pin.png') center/contain no-repeat;
+  background: url('../assets/pin.png') center/contain no-repeat;
   cursor: pointer;
   transform: translate(-50%, -100%);
   transition: transform 0.2s ease;
