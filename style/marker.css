@@ -2,20 +2,20 @@
 
 .marker {
   position: absolute;
+  z-index: 2;               /* выше уровня карты */
   width: 32px;
   height: 32px;
   background: url('../assets/pin.png') center/contain no-repeat;
   transform: translate(-50%, -100%);
   cursor: pointer;
-  /* включаем постоянное мягкое жёлтое свечение */
+  /* постоянное мягкое жёлтое свечение */
   filter: drop-shadow(0 0 6px rgba(255, 255, 0, 0.6));
   transition: transform 0.2s, filter 0.2s;
-  z-index: 2;
 }
 
 .marker:hover {
   /* при наведении чуть увеличиваем и усиливаем свечение */
   transform: translate(-50%, -100%) scale(1.2);
   filter: drop-shadow(0 0 12px rgba(255, 255, 0, 0.9));
-  z-index: 10;
+  /* z-index можно не менять, он уже выше карты */
 }
