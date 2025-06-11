@@ -1,14 +1,11 @@
 // src/animations/emojiLarge.js
-
 import { createEl, randomBetween } from '../utils/dom.js';
 
 let intervalIdLarge = null;
 
-/**
- * Запускает генерацию и анимацию больших эмодзи
- */
+/** Запускает генерацию и анимацию больших эмодзи */
 export function startLarge() {
-  if (intervalIdLarge !== null) return; // уже запущено
+  if (intervalIdLarge !== null) return;
   intervalIdLarge = setInterval(() => {
     const emoji = createEl('div', { className: 'emoji-large' });
     emoji.textContent = getRandomEmojiLarge();
@@ -17,9 +14,7 @@ export function startLarge() {
   }, 2500);
 }
 
-/**
- * Останавливает генерацию больших эмодзи
- */
+/** Останавливает генерацию больших эмодзи */
 export function stopLarge() {
   clearInterval(intervalIdLarge);
   intervalIdLarge = null;
@@ -33,11 +28,6 @@ function getRandomEmojiLarge() {
 function animate(el, duration, floatClass) {
   const startX = randomBetween(0, window.innerWidth);
   el.style.left = `${startX}px`;
-  requestAnimationFrame(() => {
-    el.classList.add(floatClass);
-  });
-  setTimeout(() => {
-    el.remove();
-  }, duration);
+  requestAnimationFrame(() => el.classList.add(floatClass));
+  setTimeout(() => el.remove(), duration);
 }
-
