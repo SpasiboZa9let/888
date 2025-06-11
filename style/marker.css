@@ -1,15 +1,14 @@
-/* style/marker.css */
+/* Метка на карте */
 .marker {
   position: absolute;
   width: 32px;
   height: 32px;
   background: url('../assets/pin.png') center/contain no-repeat;
-  cursor: pointer;
   transform: translate(-50%, -100%);
-  transition: transform 0.2s;
-  z-index: 2;
+  cursor: pointer;
+  transition: transform .2s;
+  z-index: 1;
 }
-
 .marker:hover {
   transform: translate(-50%, -100%) scale(1.2);
 }
