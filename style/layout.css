@@ -1,18 +1,18 @@
-/* Центруем карту и панель вместе */
+/* Контейнер для карты и панели */
 .app-container {
   display: flex;
-  justify-content: center;   /* по горизонтали */
-  align-items: flex-start;   /* выравнивание по верху */
-  gap: 20px;                 /* расстояние между картой и панелью */
-  padding: 20px;             /* отступы от краёв экрана */
-  box-sizing: border-box;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
 }
 
+/* Собственно карта */
 #map {
   position: relative;
-  width: 800px;              /* желаемая ширина */
-  max-width: 100%;           /* но не больше экрана */
-  aspect-ratio: 16/9;        /* сохранить пропорции карты */
+  width: 800px;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
   background: url('../assets/map-background.png') center/cover no-repeat;
   overflow: hidden;
   border: 1px solid #ddd;
