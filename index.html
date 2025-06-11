@@ -2,31 +2,22 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Карта воспоминаний</title>
-  <!-- порядок важен: сброс, лэйаут, маркеры, панель, анимации, адаптив -->
   <link rel="stylesheet" href="style/base.css">
   <link rel="stylesheet" href="style/layout.css">
   <link rel="stylesheet" href="style/marker.css">
   <link rel="stylesheet" href="style/panel.css">
-  <link rel="stylesheet" href="style/animations.css">
-  <link rel="stylesheet" href="style/responsive.css">
 </head>
 <body>
-  <!-- оверлей для затемнения фона при открытой панели -->
-  <div id="overlay"></div>
-
-  <!-- контейнер, центрируемый флексом -->
   <div class="app-container">
     <div id="map"></div>
     <div id="memory-panel">
-      <button class="close">×</button>
       <img src="" alt="Фото воспоминания">
       <div class="text"></div>
     </div>
   </div>
 
-  <!-- точка входа JS -->
   <script type="module" src="src/index.js"></script>
 </body>
 </html>
