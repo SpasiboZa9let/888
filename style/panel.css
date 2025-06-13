@@ -1,36 +1,24 @@
-.memory-panel {
-  margin-top: 0.75rem;
-  width: 100%;
-  max-width: 320px;
-  padding: 1rem 1.2rem;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 16px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(6px);
+/* Боковая панель */
+#memory-panel {
+  width: 320px;
+  max-height: calc(70vw / (16/9));
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  border-radius: 4px;
+  overflow-y: auto;
   opacity: 0;
-  transform: translateY(20px);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 10;
+  transition: opacity .3s;
 }
-
-.memory-panel.show {
+#memory-panel.visible {
   opacity: 1;
-  transform: translateY(0);
 }
-
-.memory-panel img {
+#memory-panel img {
   width: 100%;
-  height: auto;
-  border-radius: 12px;
-  margin-bottom: 0.75rem;
-  object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  margin-bottom: 12px;
 }
-
-.memory-panel .text {
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  color: #222;
-  line-height: 1.5;
-  word-break: break-word;
+#memory-panel .text {
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
