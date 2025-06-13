@@ -9,10 +9,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const panel = new MemoryPanel('#memory-panel');
   new MapRenderer('#map', MARKERS, panel);
 
-  // запуск анимаций эмодзи
   startEmojiSmall();
   startEmojiLarge();
 
-  // подождать, пока маркеры появятся
   setTimeout(drawRoute, 100);
+  setupProgressBar();
 });
+
+let viewedMarkers = new Set();
+
+function setupProgressBar() {
+  const markers = document.querySelectorAll('.marker');
+  const progressBar = document.getElementById('progress-bar');
+
+  if (!markers.length || !progressBar) return;
+
+  markers.forEach((marker, index) => {
+    marker.addEventListener('mouseenter', () => {
+      if (!viewedMarkers.has(index)) {
+        viewedMarkers.add(index);
+        const percent = (viewedMarkers.size / markers.length) * 100;
+        progressBar.style.width = `${percent}%`;
+
+        if (viewedMarkers.size === markers.length) {
+          progressBar.style.background = 'linear-gradient(90deg, #00ff9c, #00c9ff)';
+          progressBar.style.boxShadow = '0 0 10px #00ffcc';
+          progressBar.style.height = '8px';
+        }
+      }
+    });
+  });
+}
