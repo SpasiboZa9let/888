@@ -1,7 +1,7 @@
 .marker {
   width: 24px;
   height: 24px;
-  background-image: url(../assets/pin.png);
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAy0lEQVRIS+2U0Q3CMBBF38slUkDIIhAlUgDFQBIUgBFUgBFUgHl5g/ExvLE1pW5p/M3gD99XrhhYzgiN4gU4YhyV0EqZy9zHgIgh3IJ1rMALr8RxjJQDWImkPwHCKwGN3ugDyG61VmKXpbmoeDwRUYEkQYcHOdc7ErA9FylBrbyu7QgRpYZ3J4OZApSu4xDoPG3gRhkPB3xQqAYe4+5+R7gsIpA3MRbLFHbYMpy1d5QEm9pZuQEAAAAASUVORK5CYII=");
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
