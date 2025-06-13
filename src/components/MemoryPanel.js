@@ -5,35 +5,28 @@ export default class MemoryPanel {
     this.panel = qs(selector);
     this.img   = qs('img', this.panel);
     this.txt   = qs('.text', this.panel);
-
-    this._isMobile = window.innerWidth <= 768; // порог можно уточнить
   }
 
   show(data) {
-    if (!this.panel) return;
+    this.img.src = data.img;
+    this.img.alt = data.text;
+    this.txt.textContent = data.text;
 
-    // на мобилках сначала прячем, потом показываем
-    if (this._isMobile) {
-      this.panel.classList.remove('visible');
+    // Удаляем старый fade, если есть
+    const old = this.panel.querySelector('.title-fade');
+    if (old) old.remove();
 
-      setTimeout(() => {
-        this.img.src = data.img;
-        this.img.alt = data.text;
-        this.txt.textContent = data.text;
-        this.panel.classList.add('visible');
-      }, 300); // 300мс = как в transition
-    } else {
-      // десктоп: мгновенное обновление
-      this.img.src = data.img;
-      this.img.alt = data.text;
-      this.txt.textContent = data.text;
-      this.panel.classList.add('visible');
-    }
+    const title = document.createElement('div');
+    title.className = 'title-fade';
+    title.textContent = data.text;
+    this.panel.appendChild(title);
+
+    this.panel.classList.add('visible');
   }
 
   hide() {
-    if (this.panel) {
-      this.panel.classList.remove('visible');
-    }
+    this.panel.classList.remove('visible');
+    const title = this.panel.querySelector('.title-fade');
+    if (title) title.remove();
   }
 }
