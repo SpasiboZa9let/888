@@ -38,7 +38,8 @@ export function drawRoute() {
   // ✨ Винтажный стиль линии
   path.setAttribute("stroke", "#7a6f5a");
   path.setAttribute("stroke-width", "2");
-  path.setAttribute("stroke-dasharray", "6 4");
+  path.setAttribute("stroke-dasharray", "1000");
+  path.setAttribute("stroke-dashoffset", "1000");
   path.setAttribute("stroke-linecap", "round");
   path.setAttribute("class", "route-path");
 
