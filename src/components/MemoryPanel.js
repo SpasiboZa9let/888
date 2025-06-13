@@ -3,13 +3,21 @@ import { qs } from '../utils/dom.js';
 export default class MemoryPanel {
   constructor(selector) {
     this.panel = qs(selector);
-    this.img   = qs('img', this.panel);
-    this.txt   = qs('.text', this.panel);
 
+    // Создаём элементы
     this.titleEl = document.createElement('div');
     this.titleEl.className = 'memory-title';
-    this.panel.appendChild(this.titleEl);
 
+    this.img = document.createElement('img');
+    this.txt = document.createElement('div');
+    this.txt.className = 'text';
+
+    // Добавляем в нужном порядке
+    this.panel.appendChild(this.titleEl);
+    this.panel.appendChild(this.img);
+    this.panel.appendChild(this.txt);
+
+    // Логика мобильных анимаций
     this.isMobile = window.innerWidth < 768;
     this.queue = Promise.resolve();
   }
@@ -31,7 +39,7 @@ export default class MemoryPanel {
     this.titleEl.textContent = data.title || '';
     this.panel.classList.add('visible');
 
-    // перезапуск анимации титров
+    // Перезапуск анимации титров
     this.titleEl.classList.remove('fade');
     void this.titleEl.offsetWidth;
     this.titleEl.classList.add('fade');
@@ -40,7 +48,7 @@ export default class MemoryPanel {
   _fadeOut() {
     return new Promise(resolve => {
       this.panel.classList.remove('visible');
-      setTimeout(resolve, 250); // подстроено под CSS transition
+      setTimeout(resolve, 250); // должен совпадать с CSS transition
     });
   }
 
