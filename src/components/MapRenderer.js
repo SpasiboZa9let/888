@@ -39,7 +39,7 @@ export default class MapRenderer {
       el.style.top  = `${data.y * height}px`;
       el.style.position = 'absolute';
 
-      // ✅ Заменено:
+      // ✅ Исправлено
       el.addEventListener('mouseenter', () => this.panel.showMemory(data));
       el.addEventListener('mouseleave', () => this.panel.hideMemory());
 
