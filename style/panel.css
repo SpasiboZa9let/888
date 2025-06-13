@@ -46,11 +46,17 @@
 /* 📱 Адаптив для мобилы */
 @media (max-width: 600px) {
   .memory-panel {
-    right: 1rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    right: auto;
     bottom: 1rem;
     width: calc(100vw - 2rem);
     padding: 1rem;
     border-radius: 16px;
+  }
+
+  .memory-panel.show {
+    transform: translateX(-50%) translateY(0);
   }
 
   .memory-panel h2 {
