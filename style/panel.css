@@ -53,3 +53,34 @@
   0% { opacity: 0; transform: translate(-50%, -55%); }
   100% { opacity: 1; transform: translate(-50%, -50%); }
 }
+.memory-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #3c3a36;
+  font-size: 1.3rem;
+  text-align: center;
+  font-family: 'Special Elite', serif;
+  pointer-events: none;
+  opacity: 0;
+  white-space: pre-wrap;
+  padding: 10px 20px;
+  background: rgba(255, 252, 240, 0.8);
+  border-radius: 6px;
+  border: 1px solid #d6cbb7;
+  max-width: 90%;
+  z-index: 10;
+}
+
+.memory-title.fade {
+  animation: fadeTitle 4s ease-out forwards;
+}
+
+@keyframes fadeTitle {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.05); }
+}
+
