@@ -12,21 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
   startEmojiSmall();
   startEmojiLarge();
 
-  setTimeout(() => {
-    drawRoute();
-    setupProgressBar(); // вызываем только после полной инициализации
-  }, 200); // увеличил задержку до 200 мс для гарантии
+  setTimeout(drawRoute, 100);
 });
 
+// Глобально доступная функция — будет вызвана внутри MapRenderer
 window.setupProgressBar = function () {
   const markers = document.querySelectorAll('.marker');
-  const leftBar = document.getElementById('progress-bar-left');
-  const rightBar = document.getElementById('progress-bar-right');
+  const progressBar = document.getElementById('progress-bar');
 
-  if (!markers.length || !leftBar || !rightBar) {
-    console.warn("Прогрессбар не инициализирован — маркеры или элементы не найдены.");
-    return;
-  }
+  if (!markers.length || !progressBar) return;
 
   const viewedMarkers = new Set();
 
@@ -34,12 +28,14 @@ window.setupProgressBar = function () {
     marker.addEventListener('mouseenter', () => {
       if (!viewedMarkers.has(index)) {
         viewedMarkers.add(index);
-
         const percent = (viewedMarkers.size / markers.length) * 100;
-        const half = Math.min(percent / 2, 50);
+        progressBar.style.width = `${percent}%`;
 
-        leftBar.style.width = `${half}%`;
-        rightBar.style.width = `${half}%`;
+        if (viewedMarkers.size === markers.length) {
+          progressBar.style.background = 'linear-gradient(90deg, #00ff9c, #00c9ff)';
+          progressBar.style.boxShadow = '0 0 10px #00ffcc';
+          progressBar.style.height = '14px';
+        }
       }
     });
   });
