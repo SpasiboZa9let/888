@@ -1,61 +1,35 @@
 .memory-panel {
-  position: absolute;
-  bottom: 2rem;
-  width: 320px;
-  max-width: 90vw;
-  padding: 1.5rem;
+  margin-top: 0.75rem;
+  width: 100%;
+  max-width: 320px;
+  padding: 1rem 1.2rem;
   background: rgba(255, 255, 255, 0.92);
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6px);
   opacity: 0;
   transform: translateY(20px);
-  z-index: 10;
-
-  /* Центр по умолчанию */
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  right: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .memory-panel.show {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.memory-panel h2 {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  color: #111;
-}
-
-.memory-panel p {
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.4;
+  transform: translateY(0);
 }
 
 .memory-panel img {
   width: 100%;
   height: auto;
   border-radius: 12px;
-  margin-top: 1rem;
+  margin-bottom: 0.75rem;
   object-fit: cover;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* 🧬 Тонкая адаптация */
-@media (min-width: 901px) {
-  .memory-panel {
-    left: auto;
-    right: 2rem;
-    transform: translateY(20px);
-  }
-
-  .memory-panel.show {
-    transform: translateY(0);
-  }
+.memory-panel .text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #222;
+  line-height: 1.5;
+  word-break: break-word;
 }
