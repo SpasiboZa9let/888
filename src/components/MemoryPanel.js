@@ -17,6 +17,9 @@ export default class MemoryPanel {
     this.panel.appendChild(this.img);
     this.panel.appendChild(this.txt);
 
+    // Затемнение карты
+    this.dim = document.getElementById('dim-overlay');
+
     // Логика мобильных анимаций
     this.isMobile = window.innerWidth < 768;
     this.queue = Promise.resolve();
@@ -38,6 +41,7 @@ export default class MemoryPanel {
     this.txt.textContent = data.caption || '';
     this.titleEl.textContent = data.title || '';
     this.panel.classList.add('visible');
+    if (this.dim) this.dim.classList.add('visible');
 
     // Перезапуск анимации титров
     this.titleEl.classList.remove('fade');
@@ -48,12 +52,14 @@ export default class MemoryPanel {
   _fadeOut() {
     return new Promise(resolve => {
       this.panel.classList.remove('visible');
+      if (this.dim) this.dim.classList.remove('visible');
       setTimeout(resolve, 250); // должен совпадать с CSS transition
     });
   }
 
   hide() {
     this.panel.classList.remove('visible');
+    if (this.dim) this.dim.classList.remove('visible');
     this.titleEl.textContent = '';
   }
 }
