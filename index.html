@@ -13,6 +13,20 @@
 <body>
   <div class="app-container">
     <div id="map"></div>
+
+    <!-- SVG маршрут между точками -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700"
+      style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:5;">
+      <polyline
+        points="100,140 250,244 420,224 580,280 700,385"
+        fill="none"
+        stroke="#00f0ff"
+        stroke-width="2"
+        stroke-dasharray="6 4"
+        stroke-linecap="round"
+        style="filter: drop-shadow(0 0 5px #00f0ff); animation: dashmove 4s linear infinite;" />
+    </svg>
+
     <div id="memory-panel">
       <img src="" alt="Фото воспоминания">
       <div class="text"></div>
