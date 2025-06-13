@@ -83,4 +83,17 @@
   90%  { opacity: 1; }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.05); }
 }
+@media (max-width: 767px) {
+  #memory-panel {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  #memory-panel.visible {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
 
