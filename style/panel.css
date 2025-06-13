@@ -1,24 +1,30 @@
-/* Боковая панель */
 #memory-panel {
   width: 320px;
   max-height: calc(70vw / (16/9));
-  background: #fff;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  background: #fffdf6;
+  border: 1px solid #d7cdbb;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
   padding: 16px;
   border-radius: 4px;
   overflow-y: auto;
   opacity: 0;
   transition: opacity .3s;
+  font-family: 'Special Elite', serif;
 }
+
 #memory-panel.visible {
   opacity: 1;
 }
+
 #memory-panel img {
   width: 100%;
-  border-radius: 4px;
+  border-radius: 2px;
+  filter: sepia(0.1) brightness(0.95) contrast(1.05);
   margin-bottom: 12px;
 }
+
 #memory-panel .text {
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #3c3a36;
 }
