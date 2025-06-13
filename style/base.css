@@ -9,3 +9,11 @@ body {
   background-color: #fafafa;
   color: #333;
 }
+@keyframes dashmove {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -20;
+  }
+}
