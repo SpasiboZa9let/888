@@ -37,6 +37,7 @@ export default class MapRenderer {
       el.className = 'marker';
       el.style.left = `${data.x * width}px`;
       el.style.top  = `${data.y * height}px`;
+      el.style.position = 'absolute';
 
       el.addEventListener('mouseenter', () => this.panel.show(data));
       el.addEventListener('mouseleave', () => this.panel.hide());
