@@ -1,11 +1,9 @@
 .marker {
   width: 24px;
   height: 24px;
+  background-color: #FD3333;
+  border-radius: 50%;
   position: absolute;
   z-index: 10;
   cursor: pointer;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkQzMzMzIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMu/b3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMmM0LjQxIDAgOC4wMDIgMy41OTMgOC4wMDIgOCAwIDMuMjE1LTIuNzE4IDYuNzI1LTYuMTA2IDExLjI1LS4zMjIuNDI5LS45MzMuNDI5LTEuMjU2IDAtMy4zODgtNC41MjUtNi4xMDYtOC4wMzUtNi4xMDYtMTEuMjUgMC00LjQwNyAzLjU4OS04IDguMDAyLTggem0wIDFjLTMuODYgMC03IDMuMTQtNyA3IDAgMi45NzMgMi42MzYgNi4yODMgNS44NDUgMTAuNTI1LjUzMy42NzcuODgzIDEuMTI0LjkxMiAxLjE2NS4wMjktLjA0LjM3Ni0uNDg1LjkxMi0xLjE2NUMxNi4zNjQgMTYuMjg4IDE5IDIyLjAwMyAxOSAyMGMwLTMuODYtMy4xNC03LTctN3ptMCA0Yy0xLjY2IDAtMyAxLjM0LTMgMyAwIDEuNjYgMS4zNCAzIDMgMyAxLjY2IDAgMy0xLjM0IDMtMyAwLTEuNjYtMS4zNC0zLTMtM3oiLz48L3N2Zz4=");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
 }
