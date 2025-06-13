@@ -39,15 +39,15 @@ export default class MapRenderer {
       el.style.top  = `${data.y * height}px`;
       el.style.position = 'absolute';
 
-      el.addEventListener('mouseenter', () => this.panel.showMemory(data));
-      el.addEventListener('mouseleave', () => this.panel.hideMemory());
+      el.addEventListener('mouseenter', () => this.panel.show(data));
+      el.addEventListener('mouseleave', () => this.panel.hide());
 
       this.mapEl.appendChild(el);
     });
+if (typeof window.setupProgressBar === 'function') {
+  window.setupProgressBar();
+}
 
-    if (typeof window.setupProgressBar === 'function') {
-      window.setupProgressBar();
-    }
   }
 
   destroy() {

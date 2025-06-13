@@ -1,27 +1,20 @@
+import { qs } from '../utils/dom.js';
+
 export default class MemoryPanel {
   constructor(selector) {
-    this.panelEl = document.querySelector(selector);
-    this.imageEl = this.panelEl.querySelector("img");
-    this.textEl = this.panelEl.querySelector(".text");
+    this.panel = qs(selector);
+    this.img   = qs('img', this.panel);
+    this.txt   = qs('.text', this.panel);
   }
 
-  showMemory(memory) {
-    this.imageEl.src = memory.img;
-    this.textEl.textContent = memory.text;
-
-    // Добавляем класс для плавного появления
-    requestAnimationFrame(() => {
-      this.panelEl.classList.add("show");
-    });
+  show(data) {
+    this.img.src = data.img;
+    this.img.alt = data.text;
+    this.txt.textContent = data.text;
+    this.panel.classList.add('visible');
   }
 
-  hideMemory() {
-    this.panelEl.classList.remove("show");
-
-    // Ждём, пока исчезнет, и очищаем контент
-    setTimeout(() => {
-      this.imageEl.src = "";
-      this.textEl.textContent = "";
-    }, 300);
+  hide() {
+    this.panel.classList.remove('visible');
   }
 }
