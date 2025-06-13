@@ -19,6 +19,16 @@ export default class MapRenderer {
     this._onResize = this._renderMarkers.bind(this);
     window.addEventListener('resize', this._onResize);
 
+    // Закрытие панели по клику вне карты и вне панели
+    document.addEventListener('click', (e) => {
+      if (
+        !this.mapEl.contains(e.target) &&
+        !this.panel.panelEl.contains(e.target)
+      ) {
+        this.panel.hideMemory();
+      }
+    });
+
     this._renderMarkers();
   }
 
@@ -39,9 +49,11 @@ export default class MapRenderer {
       el.style.top  = `${data.y * height}px`;
       el.style.position = 'absolute';
 
-      // ✅ Исправлено
-      el.addEventListener('mouseenter', () => this.panel.showMemory(data));
-      el.addEventListener('mouseleave', () => this.panel.hideMemory());
+      // ✅ Универсальное поведение — только клик
+      el.addEventListener('click', (e) => {
+        e.stopPropagation(); // чтобы не сработал глобальный закрыватель
+        this.panel.showMemory(data);
+      });
 
       this.mapEl.appendChild(el);
     });
