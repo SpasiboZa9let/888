@@ -1,20 +1,24 @@
-/* Панель с воспоминанием */
+/* Боковая панель */
 #memory-panel {
-  width: 300px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  overflow: hidden;
-  font-size: 14px;
+  width: 320px;
+  max-height: calc(70vw / (16/9));
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  border-radius: 4px;
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity .3s;
 }
-
+#memory-panel.visible {
+  opacity: 1;
+}
 #memory-panel img {
   width: 100%;
-  height: auto;
-  display: block;
+  border-radius: 4px;
+  margin-bottom: 12px;
 }
-
 #memory-panel .text {
-  padding: 12px;
+  font-size: 0.9rem;
   line-height: 1.4;
 }

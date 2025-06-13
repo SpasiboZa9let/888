@@ -1,19 +1,23 @@
-/* Обёртка всего приложения */
+/* Центрируем контейнер */
 .app-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
   padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Карта */
+/* Карта фиксированного размера, без зума */
 #map {
   position: relative;
-  max-width: 1000px;
-  height: 700px;
-  background: url('../assets/map.png') center / cover no-repeat;
-  border-radius: 12px;
+  z-index: 1;
+  width: 800px;
+  height: 450px;             /* 16:9 */
+  max-width: 100%;
+  background: url('../assets/map.png') center/cover no-repeat;
+  overflow: hidden;
   border: 1px solid #ddd;
-  overflow: visible;
+  border-radius: 4px;
+  touch-action: none;        /* отключаем жесты масштабирования */
 }
