@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   startEmojiSmall();
   startEmojiLarge();
 
-  setTimeout(drawRoute, 100);
-  setupProgressBar();
+  setTimeout(() => {
+    drawRoute();
+    setupProgressBar(); // вызываем только после полной инициализации
+  }, 200); // увеличил задержку до 200 мс для гарантии
 });
 
 window.setupProgressBar = function () {
@@ -21,7 +23,10 @@ window.setupProgressBar = function () {
   const leftBar = document.getElementById('progress-bar-left');
   const rightBar = document.getElementById('progress-bar-right');
 
-  if (!markers.length || !leftBar || !rightBar) return;
+  if (!markers.length || !leftBar || !rightBar) {
+    console.warn("Прогрессбар не инициализирован — маркеры или элементы не найдены.");
+    return;
+  }
 
   const viewedMarkers = new Set();
 
