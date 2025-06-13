@@ -1,16 +1,28 @@
 #progress-wrapper {
+  position: relative;
   width: 100%;
-  height: 14px; /* стало жирнее */
+  height: 14px;
   background: #e0e0e0;
   border-radius: 7px;
-  margin: 20px 0;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-#progress-bar {
+#progress-bar-left,
+#progress-bar-right {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #00f0ff, #a100ff);
-  transition: width 0.4s ease, background 0.4s ease, box-shadow 0.4s ease, height 0.4s ease;
-  border-radius: 7px;
+  transition: width 0.4s ease;
+}
+
+#progress-bar-left {
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+
+#progress-bar-right {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
 }
