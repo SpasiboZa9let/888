@@ -4,16 +4,32 @@
     align-items: center;
     gap: 10px;
   }
+
   #map {
     width: calc(100vw - 40px);
-    aspect-ratio: unset;
+    aspect-ratio: 16 / 9;
     height: auto;
   }
+
   #memory-panel {
     width: calc(100vw - 40px);
     transform: translateY(100%);
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 12px;
   }
+
   #memory-panel.visible {
     transform: translateY(0);
+  }
+
+  .marker {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .marker::before {
+    font-size: 1.6rem;
   }
 }
