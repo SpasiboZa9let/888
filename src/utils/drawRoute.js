@@ -1,4 +1,3 @@
-
 export function drawRoute() {
   const markers = Array.from(document.querySelectorAll('.marker'));
   if (markers.length < 2) return;
@@ -35,7 +34,9 @@ export function drawRoute() {
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", d.join(" "));
   path.setAttribute("fill", "none");
-  path.setAttribute("stroke", "#00f0ff");
+
+  // ✨ Винтажный стиль линии
+  path.setAttribute("stroke", "#7a6f5a");
   path.setAttribute("stroke-width", "2");
   path.setAttribute("stroke-dasharray", "6 4");
   path.setAttribute("stroke-linecap", "round");
