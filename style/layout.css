@@ -6,18 +6,19 @@
   gap: 20px;
   padding: 20px;
   box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
-/* Карта фиксированного размера, без зума */
+/* Карта с адаптивным соотношением сторон */
 #map {
   position: relative;
   z-index: 1;
-  width: 800px;
-  height: 450px;             /* 16:9 */
-  max-width: 100%;
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
   background: url('../assets/map.png') center/cover no-repeat;
   overflow: hidden;
   border: 1px solid #ddd;
   border-radius: 4px;
-  touch-action: none;        /* отключаем жесты масштабирования */
+  touch-action: none;
 }
