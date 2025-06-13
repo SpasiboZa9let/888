@@ -14,3 +14,11 @@
   transition: width 0.4s ease, background 0.4s ease, box-shadow 0.4s ease, height 0.4s ease;
   border-radius: 7px;
 }
+#progress-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible; /* ← вот ключ */
+  margin-top: 1rem;
+}
+
