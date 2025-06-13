@@ -17,3 +17,9 @@ body {
     stroke-dashoffset: -20;
   }
 }
+@keyframes drawpath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
