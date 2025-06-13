@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   startEmojiSmall();
   startEmojiLarge();
 
-  setTimeout(drawRoute, 100);
-  setupProgressBar();
+  setTimeout(() => {
+    drawRoute();
+    setupProgressBar(); // <-- теперь вызывается после отрисовки маршрута и маркеров
+  }, 150);
 });
 
 let viewedMarkers = new Set();
@@ -34,7 +36,7 @@ function setupProgressBar() {
         if (viewedMarkers.size === markers.length) {
           progressBar.style.background = 'linear-gradient(90deg, #00ff9c, #00c9ff)';
           progressBar.style.boxShadow = '0 0 10px #00ffcc';
-          progressBar.style.height = '8px';
+          progressBar.style.height = '14px';
         }
       }
     });
