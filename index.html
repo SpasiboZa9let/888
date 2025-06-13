@@ -5,34 +5,27 @@
   <!-- фиксируем масштаб страницы, отключаем zoom -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Карта воспоминаний</title>
+
+  <!-- Подключение стилей -->
   <link rel="stylesheet" href="style/base.css">
   <link rel="stylesheet" href="style/layout.css">
   <link rel="stylesheet" href="style/marker.css">
   <link rel="stylesheet" href="style/panel.css">
+  <link rel="stylesheet" href="style/animations.css">
 </head>
 <body>
   <div class="app-container">
     <div id="map"></div>
-
-    <!-- SVG маршрут с анимацией появления -->
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700"
-      style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:5;">
-      <path d="M 100,140 C 150.0,140 200.0,244 250,244 C 306.6666666666667,244 363.3333333333333,224 420,224 C 473.3333333333333,224 526.6666666666666,280 580,280 C 620.0,280 660.0,385 700,385"
-        fill="none"
-        stroke="#00f0ff"
-        stroke-width="2"
-        stroke-dasharray="1000"
-        stroke-dashoffset="1000"
-        stroke-linecap="round"
-        style="filter: drop-shadow(0 0 5px #00f0ff); animation: drawpath 4s linear forwards;" />
-    </svg>
-
-    <div id="memory-panel">
-      <img src="" alt="Фото воспоминания">
-      <div class="text"></div>
-    </div>
+    <div id="memory-panel"></div>
   </div>
 
+  <!-- SVG маршрут с анимацией появления -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700"
+    style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:5;">
+    <path class="route-path" d="" fill="none" stroke="#00f0ff" stroke-width="2" />
+  </svg>
+
+  <!-- Подключение скриптов -->
   <script type="module" src="src/index.js"></script>
 </body>
 </html>
