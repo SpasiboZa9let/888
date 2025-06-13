@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const panel = new MemoryPanel('#memory-panel');
   new MapRenderer('#map', MARKERS, panel);
 
-  startEmojiSmall();
-  startEmojiLarge();
+  //startEmojiSmall();
+  //startEmojiLarge();
 
   setTimeout(drawRoute, 100);
 });
