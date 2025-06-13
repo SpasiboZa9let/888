@@ -1,32 +1,46 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Карта воспоминаний</title>
-  <link rel="stylesheet" href="./style/base.css" />
-  <link rel="stylesheet" href="./style/layout.css" />
-  <link rel="stylesheet" href="./style/animations.css" />
-  <link rel="stylesheet" href="./style/marker.css" />
-  <link rel="stylesheet" href="./style/panel.css" />
-  <link rel="stylesheet" href="./style/progress-bar.css" />
-  <link rel="stylesheet" href="./style/responsive.css" />
-</head>
-<body>
-  <div id="app">
-    <div id="map-container">
-      <img id="map" src="./assets/map.png" alt="Карта" />
-    </div>
+import { MARKERS } from './data/markers.js';
+import MapRenderer from './components/MapRenderer.js';
+import MemoryPanel from './components/MemoryPanel.js';
+import { startEmojiSmall } from './animations/emojiSmall.js';
+import { startEmojiLarge } from './animations/emojiLarge.js';
+import { drawRoute } from './utils/drawRoute.js';
 
-    <div id="memory-panel"></div>
+document.addEventListener('DOMContentLoaded', () => {
+  const panel = new MemoryPanel('#memory-panel');
+  new MapRenderer('#map', MARKERS, panel);
 
-    <!-- Новый прогресс-бар -->
-    <div id="progress-wrapper">
-      <div id="progress-bar-left"></div>
-      <div id="progress-bar-right"></div>
-    </div>
-  </div>
+  startEmojiSmall();
+  startEmojiLarge();
 
-  <script type="module" src="./src/index.js"></script>
-</body>
-</html>
+  setTimeout(() => {
+    drawRoute();
+    setupProgressBar(); // вызываем только после полной инициализации
+  }, 200); // увеличил задержку до 200 мс для гарантии
+});
+
+window.setupProgressBar = function () {
+  const markers = document.querySelectorAll('.marker');
+  const leftBar = document.getElementById('progress-bar-left');
+  const rightBar = document.getElementById('progress-bar-right');
+
+  if (!markers.length || !leftBar || !rightBar) {
+    console.warn("Прогрессбар не инициализирован — маркеры или элементы не найдены.");
+    return;
+  }
+
+  const viewedMarkers = new Set();
+
+  markers.forEach((marker, index) => {
+    marker.addEventListener('mouseenter', () => {
+      if (!viewedMarkers.has(index)) {
+        viewedMarkers.add(index);
+
+        const percent = (viewedMarkers.size / markers.length) * 100;
+        const half = Math.min(percent / 2, 50);
+
+        leftBar.style.width = `${half}%`;
+        rightBar.style.width = `${half}%`;
+      }
+    });
+  });
+};
