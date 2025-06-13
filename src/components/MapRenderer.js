@@ -16,16 +16,13 @@ export default class MapRenderer {
       return;
     }
 
-    // Всегда привязываемся к ресайзу, чтобы маркеры правильно позиционировались
     this._onResize = this._renderMarkers.bind(this);
     window.addEventListener('resize', this._onResize);
 
-    // Первая отрисовка
     this._renderMarkers();
   }
 
   _renderMarkers() {
-    // Удаляем старые
     this.mapEl.querySelectorAll('.marker').forEach(el => el.remove());
 
     const { width, height } = this.mapEl.getBoundingClientRect();
@@ -41,17 +38,6 @@ export default class MapRenderer {
       el.style.left = `${data.x * width}px`;
       el.style.top  = `${data.y * height}px`;
 
-      // Стили для маркера
-      el.style.width = '24px';
-      el.style.height = '24px';
-      el.style.backgroundImage = 'url(/assets/pin.png)';
-      el.style.backgroundSize = 'contain';
-      el.style.backgroundRepeat = 'no-repeat';
-      el.style.position = 'absolute';
-      el.style.zIndex = '10';
-      el.style.cursor = 'pointer';
-
-      // Появление/скрытие панели по наведению
       el.addEventListener('mouseenter', () => this.panel.show(data));
       el.addEventListener('mouseleave', () => this.panel.hide());
 
@@ -59,7 +45,6 @@ export default class MapRenderer {
     });
   }
 
-  // Если нужно, можно отключить ресайз-слушатель
   destroy() {
     window.removeEventListener('resize', this._onResize);
   }
