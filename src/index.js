@@ -12,19 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
   startEmojiSmall();
   startEmojiLarge();
 
-  setTimeout(() => {
-    drawRoute();
-    setupProgressBar(); // <-- теперь вызывается после отрисовки маршрута и маркеров
-  }, 150);
+  setTimeout(drawRoute, 100);
 });
 
-let viewedMarkers = new Set();
-
-function setupProgressBar() {
+// Глобально доступная функция — будет вызвана внутри MapRenderer
+window.setupProgressBar = function () {
   const markers = document.querySelectorAll('.marker');
   const progressBar = document.getElementById('progress-bar');
 
   if (!markers.length || !progressBar) return;
+
+  const viewedMarkers = new Set();
 
   markers.forEach((marker, index) => {
     marker.addEventListener('mouseenter', () => {
@@ -41,4 +39,4 @@ function setupProgressBar() {
       }
     });
   });
-}
+};
