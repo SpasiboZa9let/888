@@ -1,24 +1,45 @@
-/* Боковая панель */
-#memory-panel {
+/* Улучшенный стиль для панели воспоминаний */
+.memory-panel {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
   width: 320px;
-  max-height: calc(70vw / (16/9));
-  background: #fff;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  padding: 16px;
-  border-radius: 4px;
-  overflow-y: auto;
+  max-width: 90vw;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0;
-  transition: opacity .3s;
+  transform: translateY(20px);
+  z-index: 10;
 }
-#memory-panel.visible {
+
+.memory-panel.show {
   opacity: 1;
+  transform: translateY(0);
 }
-#memory-panel img {
-  width: 100%;
-  border-radius: 4px;
-  margin-bottom: 12px;
+
+.memory-panel h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #111;
 }
-#memory-panel .text {
-  font-size: 0.9rem;
+
+.memory-panel p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #333;
   line-height: 1.4;
+}
+
+.memory-panel img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 1rem;
+  object-fit: cover;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
