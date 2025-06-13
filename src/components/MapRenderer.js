@@ -44,6 +44,10 @@ export default class MapRenderer {
 
       this.mapEl.appendChild(el);
     });
+if (typeof window.setupProgressBar === 'function') {
+  window.setupProgressBar();
+}
+
   }
 
   destroy() {
