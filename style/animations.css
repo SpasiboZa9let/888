@@ -5,9 +5,12 @@
 }
 
 .route-path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: draw-path 2s ease-out forwards;
-  filter: drop-shadow(0 0 5px #00f0ff);
+  stroke-dasharray: 6 4;                      /* пунктир: 6px линия, 4px пробел */
+  stroke-dashoffset: 1000;                    /* стартовая длина для анимации */
+  animation: draw-path 4s ease-out forwards;  /* медленное рисование */
+  stroke: #7a6f5a;                            /* винтажный коричнево-серый */
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+  filter: drop-shadow(0 0 2px #7a6f5a);       /* лёгкая винтажная тень */
 }
-
