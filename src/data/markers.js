@@ -1,12 +1,72 @@
 export const MARKERS = [
-  { x: 0.50, y: 0.12, img: 'assets/photos/1.jpg', text: 'Завтрак в саду' },
-  { x: 0.62, y: 0.18, img: 'assets/photos/2.jpg', text: 'Прогулка по мосту' },
-  { x: 0.75, y: 0.32, img: 'assets/photos/3.jpg', text: 'Рыночная площадь' },
-  { x: 0.78, y: 0.50, img: 'assets/photos/4.jpg', text: 'Кафе у стены' },
-  { x: 0.65, y: 0.68, img: 'assets/photos/5.jpg', text: 'Дворик с пальмами' },
-  { x: 0.50, y: 0.75, img: 'assets/photos/6.jpg', text: 'Сквер с фонтаном' },
-  { x: 0.35, y: 0.68, img: 'assets/photos/7.jpg', text: 'Балкон с видом' },
-  { x: 0.22, y: 0.50, img: 'assets/photos/8.jpg', text: 'Улица с апельсинами' },
-  { x: 0.25, y: 0.30, img: 'passets/hotos/9.jpg', text: 'Арка с тенью' },
-  { x: 0.50, y: 0.50, img: 'assets/photos/10.jpg', text: 'Закат на крыше' }
+  {
+    x: 0.12,
+    y: 0.28,
+    img: 'assets/photos/1.jpg',
+    title: 'Свет сквозь занавески',
+    caption: 'Ты всё ещё спишь, а я уже люблю этот день.'
+  },
+  {
+    x: 0.21,
+    y: 0.39,
+    img: 'assets/photos/2.jpg',
+    title: 'Завтрак в полутоне',
+    caption: 'Молоко тёплое, как твоё плечо.'
+  },
+  {
+    x: 0.33,
+    y: 0.48,
+    img: 'assets/photos/3.jpg',
+    title: 'На балконе',
+    caption: 'Мы просто дышали. Этого было достаточно.'
+  },
+  {
+    x: 0.41,
+    y: 0.56,
+    img: 'assets/photos/4.jpg',
+    title: 'Случайный снимок',
+    caption: 'Ты смеёшься, не зная, что я это запомню навсегда.'
+  },
+  {
+    x: 0.49,
+    y: 0.64,
+    img: 'assets/photos/5.jpg',
+    title: 'Жаркое небо',
+    caption: 'Асфальт плавится, но в нас — прохлада.'
+  },
+  {
+    x: 0.58,
+    y: 0.53,
+    img: 'assets/photos/6.jpg',
+    title: 'Тени под деревом',
+    caption: 'Твой силуэт дрожит в листьях, как моя грудная клетка.'
+  },
+  {
+    x: 0.67,
+    y: 0.42,
+    img: 'assets/photos/7.jpg',
+    title: 'Поцелуй за киоском',
+    caption: 'Вишнёвый сок на губах и больше ничего.'
+  },
+  {
+    x: 0.75,
+    y: 0.35,
+    img: 'assets/photos/8.jpg',
+    title: 'Трамвайный звон',
+    caption: 'Металл по рельсам, как сердце по ребрам.'
+  },
+  {
+    x: 0.83,
+    y: 0.46,
+    img: 'assets/photos/9.jpg',
+    title: 'Закат в переулке',
+    caption: 'Ты сказала: «Наверное, мы запомним это». Мы — запомнили.'
+  },
+  {
+    x: 0.91,
+    y: 0.58,
+    img: 'assets/photos/10.jpg',
+    title: 'Ночная тишина',
+    caption: 'Когда город спит, я всё равно слышу тебя.'
+  }
 ];
