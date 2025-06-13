@@ -32,10 +32,11 @@ window.setupProgressBar = function () {
         progressBar.style.width = `${percent}%`;
 
         if (viewedMarkers.size === markers.length) {
-          progressBar.style.background = 'linear-gradient(90deg, #00ff9c, #00c9ff)';
-          progressBar.style.boxShadow = '0 0 10px #00ffcc';
-          progressBar.style.height = '14px';
-        }
+  progressBar.style.background = 'repeating-linear-gradient(135deg, #4b3621, #4b3621 4px, #7a5c3e 4px, #7a5c3e 8px)';
+  progressBar.style.boxShadow = '0 0 6px rgba(75, 54, 33, 0.5)';
+  progressBar.style.height = '14px';
+}
+
       }
     });
   });
