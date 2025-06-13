@@ -1,7 +1,12 @@
 export const MARKERS = [
-  { x: 0.1, y: 0.2, img: "assets/photos/1.jpg", text: "Воспоминание 1" },
-  { x: 0.25, y: 0.35, img: "assets/photos/2.jpg", text: "Воспоминание 2" },
-  { x: 0.42, y: 0.32, img: "assets/photos/3.jpg", text: "Воспоминание 3" },
-  { x: 0.58, y: 0.4, img: "assets/photos/4.jpg", text: "Воспоминание 4" },
-  { x: 0.7, y: 0.55, img: "assets/photos/5.jpg", text: "Воспоминание 5" },
+  { x: 0.15, y: 0.2,  img: '1.jpg',  text: 'Завтрак в саду' },
+  { x: 0.25, y: 0.3,  img: '2.jpg',  text: 'Прогулка по набережной' },
+  { x: 0.35, y: 0.4,  img: '3.jpg',  text: 'Площадь с музыкантами' },
+  { x: 0.45, y: 0.5,  img: '4.jpg',  text: 'Лавка с апельсинами' },
+  { x: 0.55, y: 0.6,  img: '5.jpg',  text: 'Тень под пальмой' },
+  { x: 0.65, y: 0.5,  img: '6.jpg',  text: 'Обед в кафе' },
+  { x: 0.75, y: 0.4,  img: '7.jpg',  text: 'Мостик с видом' },
+  { x: 0.65, y: 0.3,  img: '8.jpg',  text: 'Голуби на площади' },
+  { x: 0.55, y: 0.2,  img: '9.jpg',  text: 'Тихий дворик' },
+  { x: 0.45, y: 0.1,  img: '10.jpg', text: 'Вечер и солнце в окне' }
 ];
