@@ -34,7 +34,7 @@ export default class MemoryPanel {
       marker.style.pointerEvents = 'none';
     });
 
-    // Всегда делаем fadeOut, даже на десктопе
+    // Запускаем цепочку отображения
     this.queue = this.queue
       .then(() => this._fadeOut())
       .then(() => this._showData(data));
@@ -63,22 +63,20 @@ export default class MemoryPanel {
           delay: 2.5,
           duration: 1.1,
           ease: 'power2.inOut',
-         onComplete: () => {
-  this.titleEl.textContent = '';
-  this.ready = true;
-  const event = new CustomEvent('memoryPanelReady');
-  window.dispatchEvent(event);
-  setTimeout(() => this.hide(), 1000); // ← Панель скроется через 1 секунду
-}
+          onComplete: () => {
+            this.titleEl.textContent = '';
+            this.ready = true;
 
-
-            // Разблокируем пины после завершения анимации
+            // Разблокируем пины
             document.querySelectorAll('.marker').forEach(marker => {
               marker.style.pointerEvents = 'auto';
             });
 
-            const event = new CustomEvent('memoryPanelReady');
-            window.dispatchEvent(event);
+            // Отправляем сигнал
+            window.dispatchEvent(new CustomEvent('memoryPanelReady'));
+
+            // Автозакрытие панели
+            setTimeout(() => this.hide(), 1000);
           }
         });
       }
