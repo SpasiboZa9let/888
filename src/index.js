@@ -32,20 +32,17 @@ window.setupProgressBar = function () {
         const percent = (viewedMarkers.size / markers.length) * 100;
         progressBar.style.width = `${percent}%`;
 
-        if (viewedMarkers.size === markers.length) {
-          // Полный прогресс
-          progressBar.style.background = 'repeating-linear-gradient(135deg, #4b3621, #4b3621 4px, #7a5c3e 4px, #7a5c3e 8px)';
-          progressBar.style.boxShadow = '0 0 6px rgba(75, 54, 33, 0.5)';
-          progressBar.style.height = '14px';
+       if (viewedMarkers.size === markers.length) {
+  progressBar.style.background = 'repeating-linear-gradient(135deg, #4b3621, #4b3621 4px, #7a5c3e 4px, #7a5c3e 8px)';
+  progressBar.style.boxShadow = '0 0 6px rgba(75, 54, 33, 0.5)';
+  progressBar.style.height = '14px';
 
-          // Показываем кнопку альбома
-          const albumBtn = document.getElementById('open-album');
-          if (albumBtn) {
-  albumBtn.classList.remove('hidden');
-  albumBtn.classList.add('visible');
+  const albumBtn = document.getElementById('open-album');
+  if (albumBtn) {
+    albumBtn.classList.remove('hidden');
+    albumBtn.classList.add('visible');
+  }
 }
-
-      }
     });
   });
 };
