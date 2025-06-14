@@ -36,9 +36,12 @@ export default class MemoryPanel {
 
     // Запускаем цепочку отображения
     this.queue = this.queue
-      .then(() => this._fadeOut())
-      .then(() => this._showData(data));
-  }
+  .then(() => this._fadeOut())
+  .then(() => this._showData(data))
+  .then(() => {
+   setTimeout(() => this.hide(), 1000); // ✅ исчезнет и на мобиле
+  });
+
 
   _showData(data) {
     this.img.src = data.img;
