@@ -95,5 +95,13 @@
     opacity: 1;
   }
 }
+#memory-panel img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
 
 
