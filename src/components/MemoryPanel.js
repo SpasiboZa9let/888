@@ -1,67 +1,87 @@
-#memory-panel {
-  width: 320px;
-  max-height: calc(70vw / (16/9));
-  background: #fffdf6;
-  border: 1px solid #d7cdbb;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-  padding: 16px;
-  border-radius: 4px;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity .3s ease;
-  font-family: 'Special Elite', serif;
-  margin: 0 auto;
-  position: relative;
-}
+import { qs } from '../utils/dom.js';
 
-#memory-panel.visible {
-  opacity: 1;
-}
+export default class MemoryPanel {
+  constructor(selector) {
+    this.panel = qs(selector);
 
-#memory-panel img {
-  width: 100%;
-  border-radius: 2px;
-  filter: sepia(0.1) brightness(0.95) contrast(1.05);
-  margin-bottom: 12px;
-}
+    this.titleEl = document.createElement('div');
+    this.titleEl.className = 'memory-title';
 
-#memory-panel .text {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: #3c3a36;
-  text-align: center;
-  font-style: italic;
-}
+    this.img = document.createElement('img');
+    this.txt = document.createElement('div');
+    this.txt.className = 'text';
 
-.memory-title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #3c3a36;
-  font-size: 1.3rem;
-  text-align: center;
-  font-family: 'Special Elite', serif;
-  pointer-events: none;
-  opacity: 0;
-  white-space: pre-wrap;
-  padding: 10px 20px;
-  background: rgba(255, 252, 240, 0.8);
-  border-radius: 6px;
-  border: 1px solid #d6cbb7;
-  max-width: 90%;
-  z-index: 10;
-}
+    this.panel.appendChild(this.titleEl);
+    this.panel.appendChild(this.img);
+    this.panel.appendChild(this.txt);
 
-@media (max-width: 767px) {
-  #memory-panel {
-    transform: translateY(100%);
-    opacity: 0;
-    transition: transform 0.4s ease, opacity 0.3s ease;
+    this.dim = document.getElementById('dim-overlay');
+    this.isMobile = window.innerWidth < 768;
+    this.queue = Promise.resolve();
+    this.ready = true;
+
+    if (!window.gsap) {
+      console.error('GSAP is not loaded.');
+    }
   }
 
-  #memory-panel.visible {
-    transform: translateY(0%);
-    opacity: 1;
+  show(data) {
+    if (!this.ready || !window.gsap) return;
+    this.ready = false;
+
+    if (this.isMobile) {
+      this.queue = this.queue
+        .then(() => this._fadeOut())
+        .then(() => this._showData(data));
+    } else {
+      this._showData(data);
+    }
+  }
+
+  _showData(data) {
+    this.img.src = data.img;
+    this.img.alt = data.caption || '';
+    this.txt.textContent = data.caption || '';
+    this.titleEl.textContent = data.title || '';
+
+    this.panel.classList.add('visible');
+    if (this.dim) this.dim.classList.add('visible');
+
+    gsap.set(this.titleEl, { opacity: 0, y: 30, scale: 1 });
+
+    gsap.to(this.titleEl, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      onComplete: () => {
+        gsap.to(this.titleEl, {
+          opacity: 0,
+          scale: 1.05,
+          delay: 2.5,
+          duration: 1.1,
+          ease: "power2.inOut",
+          onComplete: () => {
+            this.titleEl.textContent = '';
+            this.ready = true;
+          }
+        });
+      }
+    });
+  }
+
+  _fadeOut() {
+    return new Promise(resolve => {
+      this.panel.classList.remove('visible');
+      if (this.dim) this.dim.classList.remove('visible');
+      setTimeout(resolve, 250);
+    });
+  }
+
+  hide() {
+    this.panel.classList.remove('visible');
+    if (this.dim) this.dim.classList.remove('visible');
+    this.titleEl.textContent = '';
+    this.ready = true;
   }
 }
