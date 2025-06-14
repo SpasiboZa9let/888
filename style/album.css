@@ -64,25 +64,28 @@
 }
 
 /* Кнопка "Назад к карте" */
-.back-button {
+.back-button {               /* кнопка «Назад» поверх модалки */
   position: absolute;
-  top: 2vh;
-  left: 2vw;
-  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  top: 2vh; left: 2vw;
+  z-index: 1000;
+  font-family: 'Special Elite', serif;
   padding: 0.6em 1.2em;
-  background: rgba(255, 250, 240, 0.9);
+  font-size: clamp(0.9rem,1.2vw,1.3rem);
+  background: rgba(255,250,240,.9);
   border: 1px solid #d0c6af;
   border-radius: 6px;
   color: #3c2f25;
   text-decoration: none;
-  z-index: 1000;
-  box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-  transition: background 0.3s;
+  box-shadow: 1px 1px 4px rgba(0,0,0,.2);
+  transition: background .3s;
+}
+.back-button:hover{
+  background: rgba(250,240,220,1);
 }
 
-.back-button:hover {
-  background: rgba(250, 240, 220, 1);
-}
+/* адаптивный блок уже вставили раньше */
+@media (max-width: 768px){ … }
+
 @media (max-width: 768px) {
   .carousel {
     flex-direction: column;
