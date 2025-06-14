@@ -28,6 +28,26 @@
   box-shadow: 4px 4px 10px rgba(60, 45, 30, 0.2);
 }
 
+.back-button {
+  display: inline-block;
+  margin: 24px auto;
+  font-family: 'Special Elite', serif;
+  padding: 10px 22px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #3c2f25;
+  background: linear-gradient(145deg, #fdf6e3, #f5e8d0);
+  border: 1px solid #cbbfa7;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(60, 45, 30, 0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.back-button:hover {
+  background: linear-gradient(145deg, #f8edd9, #f0e0be);
+  box-shadow: 3px 3px 6px rgba(60, 45, 30, 0.2);
+}
 
 .modal {
   position: fixed;
