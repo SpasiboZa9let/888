@@ -59,4 +59,12 @@ body::before {
   opacity: 1;
   pointer-events: auto;
 }
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: inline-block !important;
+}
+
 
