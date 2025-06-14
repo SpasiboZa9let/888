@@ -41,18 +41,11 @@ export default class MapRenderer {
       el.style.top  = `${data.y * height}px`;
       el.style.position = 'absolute';
 
-      if (isMobile) {
-        el.addEventListener('click', () => {
-          if (!this.panel.ready) return;
-          this.panel.show(data);
-        });
-      } else {
-        el.addEventListener('mouseenter', () => {
-          if (!this.panel.ready) return;
-          this.panel.show(data);
-        });
-        el.addEventListener('mouseleave', () => this.panel.hide());
-      }
+      el.addEventListener('click', () => {
+  if (!this.panel.ready) return;
+  this.panel.show(data);
+});
+
 
       this.mapEl.appendChild(el);
     });
