@@ -1,19 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Добро пожаловать</title>
-  <link rel="stylesheet" href="start.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Стартовая страница</title>
+
+  <!-- Шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="style/start.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Карта воспоминаний</h1>
-    <button id="start-btn">Начать путь</button>
-    <button id="settings-btn">Настройки</button>
-    <button id="album-btn" disabled>Фотоальбом</button>
+  <div class="start-container">
+    <h1>🌄 Карта воспоминаний</h1>
+    <button id="start-button">Начать путь</button>
+    <button id="settings-button">⚙️ Настройки</button>
+    <button id="album-button" class="hidden">📖 Фотоальбом</button>
   </div>
-  <script src="start.js"></script>
+
+  <!-- Скрипт -->
+  <script src="src/start.js" defer></script>
 </body>
 </html>
