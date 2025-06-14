@@ -1,3 +1,4 @@
+
 import { qs } from '../utils/dom.js';
 
 export default class MapRenderer {
@@ -26,6 +27,7 @@ export default class MapRenderer {
     this.mapEl.querySelectorAll('.marker').forEach(el => el.remove());
 
     const { width, height } = this.mapEl.getBoundingClientRect();
+    const isMobile = window.innerWidth < 768;
 
     this.markers.forEach(data => {
       if (data.x < 0 || data.x > 1 || data.y < 0 || data.y > 1) {
@@ -39,15 +41,25 @@ export default class MapRenderer {
       el.style.top  = `${data.y * height}px`;
       el.style.position = 'absolute';
 
-      el.addEventListener('mouseenter', () => this.panel.show(data));
-      el.addEventListener('mouseleave', () => this.panel.hide());
+      if (isMobile) {
+        el.addEventListener('click', () => {
+          if (!this.panel.ready) return;
+          this.panel.show(data);
+        });
+      } else {
+        el.addEventListener('mouseenter', () => {
+          if (!this.panel.ready) return;
+          this.panel.show(data);
+        });
+        el.addEventListener('mouseleave', () => this.panel.hide());
+      }
 
       this.mapEl.appendChild(el);
     });
-if (typeof window.setupProgressBar === 'function') {
-  window.setupProgressBar();
-}
 
+    if (typeof window.setupProgressBar === 'function') {
+      window.setupProgressBar();
+    }
   }
 
   destroy() {
