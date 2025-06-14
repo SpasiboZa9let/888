@@ -1,21 +1,23 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const startButton = document.getElementById('start-button');
+  const settingsButton = document.getElementById('settings-button');
+  const albumButton = document.getElementById('album-button');
 
-const albumBtn = document.getElementById('album-btn');
-const progress = parseInt(localStorage.getItem('progress'), 10) || 0;
+  startButton.addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
 
-if (progress >= 100) {
-  albumBtn.disabled = false;
-}
+  settingsButton.addEventListener('click', () => {
+    alert('Здесь будут настройки яркости, звука и др.');
+  });
 
-document.getElementById('start-btn').addEventListener('click', () => {
-  window.location.href = 'index.html';
-});
-
-document.getElementById('album-btn').addEventListener('click', () => {
-  if (progress >= 100) {
-    window.location.href = 'album.html';
+  // Если достигнут 100% прогресс — покажем кнопку альбома
+  const progress = localStorage.getItem('progressPercent');
+  if (progress && parseFloat(progress) >= 100) {
+    albumButton.classList.remove('hidden');
   }
-});
 
-document.getElementById('settings-btn').addEventListener('click', () => {
-  alert('Настройки пока не реализованы.');
+  albumButton.addEventListener('click', () => {
+    window.location.href = 'album.html';
+  });
 });
