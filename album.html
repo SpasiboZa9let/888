@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Фотоальбом</title>
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style/base.css" />
+  … шрифты и CSS …
   <link rel="stylesheet" href="style/album.css" />
 </head>
 <body>
-  <a href="index.html" class="back-button">← Назад к карте</a>
-
   <div id="album-modal" class="modal">
-  <a href="index.html" class="back-button">← Назад к карте</a>
-  <div class="carousel">
-    <button class="prev">←</button>
-    <div class="photo-frame">
-      <img id="album-photo" src="" alt="Фото" />
-      <div class="caption" id="album-caption"></div>
-    </div>
-    <button class="next">→</button>
-  </div>
-</div>
+    <a href="index.html" class="back-button">← Назад к карте</a>
 
+    <div class="carousel">
+      <button class="prev">←</button>
+      <div class="photo-frame">
+        <img id="album-photo" src="" alt="Фото" />
+        <div class="caption" id="album-caption"></div>
+      </div>
+      <button class="next">→</button>
+    </div>
+  </div>
 
   <script type="module" src="src/album.js"></script>
 </body>
