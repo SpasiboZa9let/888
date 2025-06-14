@@ -1,9 +1,11 @@
 import { qs } from '../utils/dom.js';
+import gsap from 'gsap';
 
 export default class MemoryPanel {
   constructor(selector) {
     this.panel = qs(selector);
 
+    // Элементы
     this.titleEl = document.createElement('div');
     this.titleEl.className = 'memory-title';
 
@@ -18,17 +20,12 @@ export default class MemoryPanel {
     this.dim = document.getElementById('dim-overlay');
     this.isMobile = window.innerWidth < 768;
     this.queue = Promise.resolve();
-    this.ready = true;
 
-    if (!window.gsap) {
-      console.error('GSAP is not loaded.');
-    }
+    this.ready = true;
   }
 
   show(data) {
-    if (!this.ready || !window.gsap) return;
-    this.ready = false;
-
+    if (!window.gsap) return;
     if (this.isMobile) {
       this.queue = this.queue
         .then(() => this._fadeOut())
@@ -39,6 +36,9 @@ export default class MemoryPanel {
   }
 
   _showData(data) {
+    if (!this.ready) return;
+    this.ready = false;
+
     this.img.src = data.img;
     this.img.alt = data.caption || '';
     this.txt.textContent = data.caption || '';
@@ -47,29 +47,29 @@ export default class MemoryPanel {
     this.panel.classList.add('visible');
     if (this.dim) this.dim.classList.add('visible');
 
-    gsap.set(this.titleEl, { opacity: 0, y: 30, scale: 1 });
-
-    gsap.to(this.titleEl, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power3.out",
-      onComplete: () => {
-        gsap.to(this.titleEl, {
-          opacity: 0,
-          scale: 1.05,
-          delay: 2.5,
-          duration: 1.1,
-          ease: "power2.inOut",
-          onComplete: () => {
-            this.titleEl.textContent = '';
-            this.ready = true;
-            const event = new CustomEvent('memoryPanelReady');
-            window.dispatchEvent(event);
-          }
-        });
+    // Анимация титров через GSAP
+    gsap.fromTo(this.titleEl,
+      { opacity: 0, scale: 0.9 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        ease: 'power2.out',
+        onComplete: () => {
+          gsap.to(this.titleEl, {
+            opacity: 0,
+            delay: 1.2,
+            duration: 0.8,
+            onComplete: () => {
+              this.titleEl.textContent = '';
+              this.ready = true;
+              const event = new CustomEvent('memoryPanelReady');
+              window.dispatchEvent(event);
+            }
+          });
+        }
       }
-    });
+    );
   }
 
   _fadeOut() {
@@ -84,6 +84,5 @@ export default class MemoryPanel {
     this.panel.classList.remove('visible');
     if (this.dim) this.dim.classList.remove('visible');
     this.titleEl.textContent = '';
-    this.ready = true;
   }
 }
