@@ -4,7 +4,7 @@ import MemoryPanel from './components/MemoryPanel.js';
 import { startEmojiSmall } from './animations/emojiSmall.js';
 import { startEmojiLarge } from './animations/emojiLarge.js';
 import { drawRoute } from './utils/drawRoute.js';
-import './album.js'; // подключаем карусель
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const panel = new MemoryPanel('#memory-panel');
