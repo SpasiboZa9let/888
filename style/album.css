@@ -102,4 +102,24 @@
     left: 10px;
   }
 }
+.album-button {
+  font-family: 'Special Elite', serif;
+  font-size: 1rem;
+  padding: 10px 20px;
+  margin: 20px auto;
+  background: #ede2cc;
+  color: #3e3225;
+  border: 2px solid #ac977a;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: inset -2px -2px 0 #c3af91, inset 2px 2px 0 #ffffff;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.album-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
