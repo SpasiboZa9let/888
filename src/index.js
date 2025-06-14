@@ -40,8 +40,11 @@ window.setupProgressBar = function () {
 
           // Показываем кнопку альбома
           const albumBtn = document.getElementById('open-album');
-          if (albumBtn) albumBtn.classList.add('visible');
-        }
+          if (albumBtn) {
+  albumBtn.classList.remove('hidden');
+  albumBtn.classList.add('visible');
+}
+
       }
     });
   });
