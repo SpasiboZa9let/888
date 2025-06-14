@@ -51,3 +51,8 @@ window.addEventListener("memoryPanelReady", () => {
   albumBtn.classList.add("visible");
 }
 });
+// Показываем первый кадр при загрузке страницы
+document.addEventListener("DOMContentLoaded", () => {
+  showPhoto(currentIndex);
+});
+
