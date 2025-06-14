@@ -1,5 +1,5 @@
 import { qs } from '../utils/dom.js';
-import gsap from 'gsap';
+const gsap = window.gsap;
 
 export default class MemoryPanel {
   constructor(selector) {
