@@ -1,33 +1,33 @@
+// Стартовый контроллер: показывает старт-меню, потом динамически подгружает карту
 document.addEventListener('DOMContentLoaded', () => {
-  // Кнопка "Начать путь"
-  const startBtn = document.getElementById('start-button');
-  if (startBtn) {
-    startBtn.addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
-  }
+  const startScreen = document.getElementById('start-screen');
+  const mainApp     = document.getElementById('main-app');
 
-  // Кнопка "Настройки"
+  const startBtn    = document.getElementById('start-button');
   const settingsBtn = document.getElementById('settings-button');
-  if (settingsBtn) {
-    settingsBtn.addEventListener('click', () => {
-      alert('Настройки пока не реализованы 🛠️');
-      // Здесь позже можно открыть модальное окно с настройками
-    });
-  }
+  const albumBtn    = document.getElementById('album-button');
 
-  // Кнопка "Фотоальбом"
-  const albumBtn = document.getElementById('album-button');
-  if (albumBtn) {
-    const progress = localStorage.getItem('progress') || 0;
-    if (progress >= 100) {
-      albumBtn.classList.remove('hidden');
-    } else {
-      albumBtn.classList.add('hidden');
-    }
+  // Проверяем процент прогресса, сохранённый картой
+  const saved = parseFloat(localStorage.getItem('progressPercent')) || 0;
+  if (saved >= 100) albumBtn.classList.remove('hidden');
 
-    albumBtn.addEventListener('click', () => {
-      window.location.href = 'album.html';
-    });
-  }
+  // ——— «Начать путь»
+  startBtn.addEventListener('click', async () => {
+    startScreen.classList.add('hidden');   // прячем меню
+    mainApp.classList.remove('hidden');    // показываем карту (блок был скрыт)
+    // динамический импорт основного кода карты
+    const mapModule = await import('./index.js');
+    // index.js должен экспортировать initMap()
+    if (mapModule.initMap) mapModule.initMap();
+  });
+
+  // ——— «Фотоальбом»
+  albumBtn.addEventListener('click', () => {
+    if (!albumBtn.classList.contains('hidden')) window.location.href = 'album.html';
+  });
+
+  // ——— «Настройки» (заглушка)
+  settingsBtn.addEventListener('click', () => {
+    alert('Настройки пока не реализованы 🛠️');
+  });
 });
