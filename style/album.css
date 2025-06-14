@@ -1,107 +1,85 @@
+/* Общий стиль модального окна */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 25, 20, 0.85);
+  z-index: 999;
+  padding: 2vw;
+  box-sizing: border-box;
+}
 
-.album-button {
-  margin: 24px auto 0;
-  display: block;
-  font-family: 'Special Elite', serif;
-  padding: 12px 28px;
-  font-size: 1.1rem;
-  border: 1px solid #cbbfa7;
-  background: linear-gradient(145deg, #fdf6e3, #f5e8d0);
-  color: #3c2f25;
+/* Карусель с фото */
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  flex-wrap: nowrap;
+  max-width: 90vw;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Кнопки вперёд/назад */
+.prev, .next {
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  background: none;
+  border: none;
+  color: #fffce5;
   cursor: pointer;
-  border-radius: 10px;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: all 0.4s ease;
-  box-shadow: 2px 2px 4px rgba(60, 45, 30, 0.1);
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.prev:hover, .next:hover {
+  transform: scale(1.2);
+}
+
+/* Контейнер фото */
+.photo-frame {
+  max-width: 100%;
+  flex: 1;
   text-align: center;
-  text-decoration: none;
 }
 
-.album-button.visible {
-  opacity: 1;
-  transform: scale(1);
+#album-photo {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
 }
 
-.album-button:hover {
-  background: linear-gradient(145deg, #f8edd9, #f0e0be);
-  box-shadow: 4px 4px 10px rgba(60, 45, 30, 0.2);
+/* Подпись */
+.caption {
+  margin-top: 1rem;
+  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  font-family: 'Special Elite', serif;
+  color: #fffef8;
+  text-shadow: 1px 1px 2px #000;
+  max-width: 90vw;
 }
 
+/* Кнопка "Назад к карте" */
 .back-button {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 999; /* поверх всего */
-  font-family: 'Special Elite', serif;
-  padding: 8px 16px;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid #ccc1aa;
-  border-radius: 5px;
+  top: 2vh;
+  left: 2vw;
+  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  padding: 0.6em 1.2em;
+  background: rgba(255, 250, 240, 0.9);
+  border: 1px solid #d0c6af;
+  border-radius: 6px;
+  color: #3c2f25;
   text-decoration: none;
-  color: #3a2f22;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-  transition: background 0.2s ease;
+  z-index: 1000;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  transition: background 0.3s;
 }
 
 .back-button:hover {
-  background: rgba(250, 240, 220, 0.95);
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(18, 16, 12, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-.modal.hidden {
-  display: none;
-}
-
-.carousel {
-  position: relative;
-  background: #fdfaf3;
-  padding: 20px;
-  border-radius: 12px;
-  border: 2px solid #d6cbb7;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  max-width: 90vw;
-  max-height: 80vh;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.photo-frame {
-  position: relative;
-  text-align: center;
-}
-#album-photo {
-  max-width: 600px;
-  max-height: 70vh;
-  border-radius: 6px;
-  filter: sepia(0.1) contrast(1.1);
-}
-#album-caption {
-  font-family: 'Special Elite', serif;
-  margin-top: 10px;
-  font-size: 0.95rem;
-  color: #3c3a36;
-  text-align: center;
-}
-
-.carousel button {
-  background: #fffdf6;
-  border: 1px solid #c4b8a2;
-  font-size: 1.5rem;
-  padding: 6px 12px;
-  cursor: pointer;
-  border-radius: 6px;
+  background: rgba(250, 240, 220, 1);
 }
