@@ -12,3 +12,20 @@ body {
 .visible {
   display: inline-block !important;
 }
+#dim-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(60, 50, 40, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 4;
+}
+
+#dim-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
