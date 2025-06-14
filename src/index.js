@@ -41,3 +41,4 @@ window.setupProgressBar = function () {
     });
   });
 };
+import './album.js';
