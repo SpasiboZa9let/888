@@ -1,23 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const startButton = document.getElementById('start-button');
-  const settingsButton = document.getElementById('settings-button');
-  const albumButton = document.getElementById('album-button');
-
-  startButton.addEventListener('click', () => {
-    window.location.href = 'index.html';
-  });
-
-  settingsButton.addEventListener('click', () => {
-    alert('Здесь будут настройки яркости, звука и др.');
-  });
-
-  // Если достигнут 100% прогресс — покажем кнопку альбома
-  const progress = localStorage.getItem('progressPercent');
-  if (progress && parseFloat(progress) >= 100) {
-    albumButton.classList.remove('hidden');
+  // Кнопка "Начать путь"
+  const startBtn = document.getElementById('start-button');
+  if (startBtn) {
+    startBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
   }
 
-  albumButton.addEventListener('click', () => {
-    window.location.href = 'album.html';
-  });
+  // Кнопка "Настройки"
+  const settingsBtn = document.getElementById('settings-button');
+  if (settingsBtn) {
+    settingsBtn.addEventListener('click', () => {
+      alert('Настройки пока не реализованы 🛠️');
+      // Здесь позже можно открыть модальное окно с настройками
+    });
+  }
+
+  // Кнопка "Фотоальбом"
+  const albumBtn = document.getElementById('album-button');
+  if (albumBtn) {
+    const progress = localStorage.getItem('progress') || 0;
+    if (progress >= 100) {
+      albumBtn.classList.remove('hidden');
+    } else {
+      albumBtn.classList.add('hidden');
+    }
+
+    albumBtn.addEventListener('click', () => {
+      window.location.href = 'album.html';
+    });
+  }
 });
