@@ -23,6 +23,14 @@ export default class MemoryPanel {
     // Логика мобильных анимаций
     this.isMobile = window.innerWidth < 768;
     this.queue = Promise.resolve();
+
+    // Автоудаление титров после fade-анимации
+    this.titleEl.addEventListener('animationend', () => {
+      if (this.titleEl.classList.contains('fade')) {
+        this.titleEl.classList.remove('fade');
+        this.titleEl.textContent = '';
+      }
+    });
   }
 
   show(data) {
