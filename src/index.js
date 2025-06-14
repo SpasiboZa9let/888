@@ -43,6 +43,9 @@ function setupProgressBar () {
           'repeating-linear-gradient(135deg,#4b3621,#4b3621 4px,#7a5c3e 4px,#7a5c3e 8px)';
         progressBar.style.boxShadow = '0 0 6px rgba(75,54,33,.5)';
         progressBar.style.height    = '14px';
+        localStorage.setItem('fullCompleted', 'yes');   // сохранить факт
+        window.dispatchEvent(new Event('progress100')); // оповестить start.js
+}
 
         /* подсветим кнопку альбома, если она уже есть на странице */
         const albumBtn = document.getElementById('album-button');
