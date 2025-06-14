@@ -4,13 +4,14 @@ import MemoryPanel from './components/MemoryPanel.js';
 import { startEmojiSmall } from './animations/emojiSmall.js';
 import { startEmojiLarge } from './animations/emojiLarge.js';
 import { drawRoute } from './utils/drawRoute.js';
+import './album.js'; // подключаем карусель
 
 document.addEventListener('DOMContentLoaded', () => {
   const panel = new MemoryPanel('#memory-panel');
   new MapRenderer('#map', MARKERS, panel);
 
-  //startEmojiSmall();
-  //startEmojiLarge();
+  // startEmojiSmall();
+  // startEmojiLarge();
 
   setTimeout(drawRoute, 100);
 });
@@ -32,13 +33,16 @@ window.setupProgressBar = function () {
         progressBar.style.width = `${percent}%`;
 
         if (viewedMarkers.size === markers.length) {
-  progressBar.style.background = 'repeating-linear-gradient(135deg, #4b3621, #4b3621 4px, #7a5c3e 4px, #7a5c3e 8px)';
-  progressBar.style.boxShadow = '0 0 6px rgba(75, 54, 33, 0.5)';
-  progressBar.style.height = '14px';
-}
+          // Полный прогресс
+          progressBar.style.background = 'repeating-linear-gradient(135deg, #4b3621, #4b3621 4px, #7a5c3e 4px, #7a5c3e 8px)';
+          progressBar.style.boxShadow = '0 0 6px rgba(75, 54, 33, 0.5)';
+          progressBar.style.height = '14px';
 
+          // Показываем кнопку альбома
+          const albumBtn = document.getElementById('open-album');
+          if (albumBtn) albumBtn.classList.add('visible');
+        }
       }
     });
   });
 };
-import './album.js';
