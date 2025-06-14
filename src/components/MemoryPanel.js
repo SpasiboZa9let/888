@@ -29,6 +29,11 @@ export default class MemoryPanel {
     if (!this.ready || !window.gsap) return;
     this.ready = false;
 
+    // 🔒 Блокируем пины
+    document.querySelectorAll('.marker').forEach(marker => {
+      marker.style.pointerEvents = 'none';
+    });
+
     if (this.isMobile) {
       this.queue = this.queue
         .then(() => this._fadeOut())
@@ -76,6 +81,10 @@ export default class MemoryPanel {
     return new Promise(resolve => {
       this.panel.classList.remove('visible');
       if (this.dim) this.dim.classList.remove('visible');
+      // ✅ Разблокируем пины
+      document.querySelectorAll('.marker').forEach(marker => {
+        marker.style.pointerEvents = 'auto';
+      });
       setTimeout(resolve, 250);
     });
   }
@@ -85,5 +94,9 @@ export default class MemoryPanel {
     if (this.dim) this.dim.classList.remove('visible');
     this.titleEl.textContent = '';
     this.ready = true;
+    // ✅ Разблокируем пины
+    document.querySelectorAll('.marker').forEach(marker => {
+      marker.style.pointerEvents = 'auto';
+    });
   }
 }
