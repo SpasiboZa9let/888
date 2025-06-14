@@ -83,3 +83,20 @@
 .back-button:hover {
   background: rgba(250, 240, 220, 1);
 }
+@media (max-width: 768px) {
+  .carousel {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .prev, .next {
+    font-size: 1.8rem;
+  }
+
+  .back-button {
+    font-size: 1rem;
+    top: 10px;
+    left: 10px;
+  }
+}
+
