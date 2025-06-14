@@ -63,9 +63,14 @@ export default class MemoryPanel {
           delay: 2.5,
           duration: 1.1,
           ease: 'power2.inOut',
-          onComplete: () => {
-            this.titleEl.textContent = '';
-            this.ready = true;
+         onComplete: () => {
+  this.titleEl.textContent = '';
+  this.ready = true;
+  const event = new CustomEvent('memoryPanelReady');
+  window.dispatchEvent(event);
+  setTimeout(() => this.hide(), 1000); // ← Панель скроется через 1 секунду
+}
+
 
             // Разблокируем пины после завершения анимации
             document.querySelectorAll('.marker').forEach(marker => {
