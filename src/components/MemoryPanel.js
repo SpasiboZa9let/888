@@ -24,11 +24,15 @@ export default class MemoryPanel {
     this.isMobile = window.innerWidth < 768;
     this.queue = Promise.resolve();
 
-    // Автоудаление титров после fade-анимации
+    // Обработка завершения анимации титров
     this.titleEl.addEventListener('animationend', () => {
       if (this.titleEl.classList.contains('fade')) {
         this.titleEl.classList.remove('fade');
         this.titleEl.textContent = '';
+
+        // Скрываем титры визуально и отключаем захват событий
+        this.titleEl.style.pointerEvents = 'none';
+        this.titleEl.style.opacity = '0';
       }
     });
   }
@@ -48,8 +52,14 @@ export default class MemoryPanel {
     this.img.alt = data.caption || '';
     this.txt.textContent = data.caption || '';
     this.titleEl.textContent = data.title || '';
+
+    // Показываем панель и затемнение
     this.panel.classList.add('visible');
     if (this.dim) this.dim.classList.add('visible');
+
+    // Подготавливаем титры к анимации
+    this.titleEl.style.pointerEvents = 'auto';
+    this.titleEl.style.opacity = '1';
 
     // Перезапуск анимации титров
     this.titleEl.classList.remove('fade');
@@ -68,6 +78,11 @@ export default class MemoryPanel {
   hide() {
     this.panel.classList.remove('visible');
     if (this.dim) this.dim.classList.remove('visible');
+
+    // Очистка содержимого
     this.titleEl.textContent = '';
+    this.titleEl.classList.remove('fade');
+    this.titleEl.style.pointerEvents = 'none';
+    this.titleEl.style.opacity = '0';
   }
 }
