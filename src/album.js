@@ -41,7 +41,7 @@ modal.addEventListener("click", (e) => {
 // Показываем кнопку при полном прогрессе
 window.addEventListener("memoryPanelReady", () => {
   const progress = document.getElementById("progress-bar");
-  if (progress && progress.style.width === "100%") {
-    albumBtn.classList.add("visible");
-  }
+  if (parseFloat(progress.style.width) >= 100) {
+  albumBtn.classList.add("visible");
+}
 });
