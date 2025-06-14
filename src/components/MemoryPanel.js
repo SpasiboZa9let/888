@@ -61,11 +61,19 @@ export default class MemoryPanel {
             delay: 1.2,
             duration: 0.8,
             onComplete: () => {
-              this.titleEl.textContent = '';
-              this.ready = true;
-              const event = new CustomEvent('memoryPanelReady');
-              window.dispatchEvent(event);
-            }
+  this.titleEl.textContent = '';
+
+  // КОСТЫЛЬ: убираем панель через 2 секунды после титров
+  setTimeout(() => {
+    this.panel.classList.remove('visible');
+    if (this.dim) this.dim.classList.remove('visible');
+    this.ready = true;
+
+    const event = new CustomEvent('memoryPanelReady');
+    window.dispatchEvent(event);
+  }, 2000);
+}
+
           });
         }
       }
