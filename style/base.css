@@ -29,3 +29,5 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
+.marker.disabled { pointer-events:none; }
+
