@@ -1,92 +1,92 @@
-import { qs } from '../utils/dom.js';
+#memory-panel {
+  width: 320px;
+  max-height: calc(70vw / (16/9));
+  background: #fffdf6;
+  border: 1px solid #d7cdbb;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .3s ease;
+  font-family: 'Special Elite', serif;
+  margin: 0 auto;
+  position: relative;
+}
 
-export default class MemoryPanel {
-  constructor(selector) {
-    this.panel = qs(selector);
+#memory-panel.visible {
+  opacity: 1;
+}
 
-    // Создаём элементы
-    this.titleEl = document.createElement('div');
-    this.titleEl.className = 'memory-title';
+#memory-panel img {
+  width: 100%;
+  border-radius: 2px;
+  filter: sepia(0.1) brightness(0.95) contrast(1.05);
+  margin-bottom: 12px;
+}
 
-    this.img = document.createElement('img');
-    this.txt = document.createElement('div');
-    this.txt.className = 'text';
+#memory-panel .text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #3c3a36;
+  text-align: center;
+  font-style: italic;
+}
 
-    this.panel.appendChild(this.titleEl);
-    this.panel.appendChild(this.img);
-    this.panel.appendChild(this.txt);
+#memory-panel .title-fade {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: #2f2c28;
+  background: rgba(255, 250, 240, 0.8);
+  padding: 6px 12px;
+  border-radius: 6px;
+  opacity: 0;
+  animation: fadeInTitle 1.6s ease-out forwards;
+  pointer-events: none;
+  font-family: 'Special Elite', serif;
+}
 
-    this.dim = document.getElementById('dim-overlay');
-    this.isMobile = window.innerWidth < 768;
-    this.queue = Promise.resolve();
+@keyframes fadeInTitle {
+  0% { opacity: 0; transform: translate(-50%, -55%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+.memory-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #3c3a36;
+  font-size: 1.3rem;
+  text-align: center;
+  font-family: 'Special Elite', serif;
+  pointer-events: none;
+  opacity: 0;
+  white-space: pre-wrap;
+  padding: 10px 20px;
+  background: rgba(255, 252, 240, 0.8);
+  border-radius: 6px;
+  border: 1px solid #d6cbb7;
+  max-width: 90%;
+  z-index: 10;
+}
 
-    this.ready = true;
 
-    // Подключаем GSAP глобально (если через CDN в HTML)
-    if (!window.gsap) {
-      console.error('GSAP is not loaded. Include it via CDN: https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js');
-    }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.05); }
+}
+@media (max-width: 767px) {
+  #memory-panel {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.3s ease;
   }
 
-  show(data) {
-    if (!this.ready || !window.gsap) return;
-    this.ready = false;
-
-    if (this.isMobile) {
-      this.queue = this.queue
-        .then(() => this._fadeOut())
-        .then(() => this._showData(data));
-    } else {
-      this._showData(data);
-    }
-  }
-
-  _showData(data) {
-    this.img.src = data.img;
-    this.img.alt = data.caption || '';
-    this.txt.textContent = data.caption || '';
-    this.titleEl.textContent = data.title || '';
-
-    this.panel.classList.add('visible');
-    if (this.dim) this.dim.classList.add('visible');
-
-    // GSAP-анимация титров: появление -> пауза -> исчезновение
-    gsap.set(this.titleEl, { opacity: 0, y: 30, scale: 1 });
-
-    gsap.to(this.titleEl, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power3.out",
-      onComplete: () => {
-        gsap.to(this.titleEl, {
-          opacity: 0,
-          scale: 1.05,
-          delay: 2.5,
-          duration: 1.1,
-          ease: "power2.inOut",
-          onComplete: () => {
-            this.titleEl.textContent = '';
-            this.ready = true;
-          }
-        });
-      }
-    });
-  }
-
-  _fadeOut() {
-    return new Promise(resolve => {
-      this.panel.classList.remove('visible');
-      if (this.dim) this.dim.classList.remove('visible');
-      setTimeout(resolve, 250);
-    });
-  }
-
-  hide() {
-    this.panel.classList.remove('visible');
-    if (this.dim) this.dim.classList.remove('visible');
-
-    this.titleEl.textContent = '';
-    this.ready = true;
+  #memory-panel.visible {
+    transform: translateY(0%);
+    opacity: 1;
   }
 }
