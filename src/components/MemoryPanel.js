@@ -29,17 +29,15 @@ export default class MemoryPanel {
     if (!this.ready || !window.gsap) return;
     this.ready = false;
 
+    // Блокируем пины
     document.querySelectorAll('.marker').forEach(marker => {
       marker.style.pointerEvents = 'none';
     });
 
-    if (this.isMobile) {
-      this.queue = this.queue
-        .then(() => this._fadeOut())
-        .then(() => this._showData(data));
-    } else {
-      this._showData(data);
-    }
+    // Всегда делаем fadeOut, даже на десктопе
+    this.queue = this.queue
+      .then(() => this._fadeOut())
+      .then(() => this._showData(data));
   }
 
   _showData(data) {
@@ -57,17 +55,23 @@ export default class MemoryPanel {
       opacity: 1,
       y: 0,
       duration: 1.2,
-      ease: "power3.out",
+      ease: 'power3.out',
       onComplete: () => {
         gsap.to(this.titleEl, {
           opacity: 0,
           scale: 1.05,
           delay: 2.5,
           duration: 1.1,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
           onComplete: () => {
             this.titleEl.textContent = '';
             this.ready = true;
+
+            // Разблокируем пины после завершения анимации
+            document.querySelectorAll('.marker').forEach(marker => {
+              marker.style.pointerEvents = 'auto';
+            });
+
             const event = new CustomEvent('memoryPanelReady');
             window.dispatchEvent(event);
           }
@@ -80,9 +84,12 @@ export default class MemoryPanel {
     return new Promise(resolve => {
       this.panel.classList.remove('visible');
       if (this.dim) this.dim.classList.remove('visible');
+
+      // Разблокируем пины
       document.querySelectorAll('.marker').forEach(marker => {
         marker.style.pointerEvents = 'auto';
       });
+
       setTimeout(resolve, 250);
     });
   }
@@ -92,6 +99,8 @@ export default class MemoryPanel {
     if (this.dim) this.dim.classList.remove('visible');
     this.titleEl.textContent = '';
     this.ready = true;
+
+    // Разблокируем пины
     document.querySelectorAll('.marker').forEach(marker => {
       marker.style.pointerEvents = 'auto';
     });
