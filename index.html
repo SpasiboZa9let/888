@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Карта воспоминаний</title>
 
-  <!-- Винтажный шрифт -->
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
-
-  <!-- Стили -->
   <link rel="stylesheet" href="style/base.css" />
   <link rel="stylesheet" href="style/layout.css" />
   <link rel="stylesheet" href="style/marker.css" />
@@ -18,34 +15,20 @@
   <link rel="stylesheet" href="style/progress-bar.css" />
   <link rel="stylesheet" href="style/album.css" />
 
-  <!-- GSAP для анимации титров -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
-
 <body>
-  <!-- Эффект зернистости -->
   <div class="grain-overlay"></div>
-
   <div class="app-container">
     <div id="map"></div>
     <div id="dim-overlay"></div>
-
-    <!-- Прогресс-бар -->
-    <div id="progress-wrapper">
-      <div id="progress-bar"></div>
-    </div>
-
-    <!-- Кнопка альбома (по умолчанию скрыта) -->
+    <div id="progress-wrapper"><div id="progress-bar"></div></div>
     <a href="album.html" id="open-album" class="album-button hidden">📖 Открыть альбом</a>
-
-    <!-- Панель воспоминаний -->
     <div id="memory-panel">
       <img src="" alt="" />
       <div class="text"></div>
     </div>
   </div>
-
-  <!-- Основной JavaScript -->
   <script type="module" src="src/index.js"></script>
 </body>
 </html>
