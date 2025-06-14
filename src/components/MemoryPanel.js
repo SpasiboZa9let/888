@@ -20,20 +20,16 @@ export default class MemoryPanel {
     this.isMobile = window.innerWidth < 768;
     this.queue = Promise.resolve();
 
-    this.ready = true; // <- можно ли кликать маркеры
+    this.ready = true;
 
-    this.titleEl.addEventListener('animationend', () => {
-      if (this.titleEl.classList.contains('fade')) {
-        this.titleEl.classList.remove('fade');
-        this.titleEl.textContent = '';
-        this.ready = true; // <- теперь разрешаем клик
-      }
-    });
+    // Подключаем GSAP глобально (если через CDN в HTML)
+    if (!window.gsap) {
+      console.error('GSAP is not loaded. Include it via CDN: https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js');
+    }
   }
 
   show(data) {
-    if (!this.ready) return; // пока титры играют — блокируем
-
+    if (!this.ready || !window.gsap) return;
     this.ready = false;
 
     if (this.isMobile) {
@@ -54,9 +50,28 @@ export default class MemoryPanel {
     this.panel.classList.add('visible');
     if (this.dim) this.dim.classList.add('visible');
 
-    this.titleEl.classList.remove('fade');
-    void this.titleEl.offsetWidth;
-    this.titleEl.classList.add('fade');
+    // GSAP-анимация титров: появление -> пауза -> исчезновение
+    gsap.set(this.titleEl, { opacity: 0, y: 30, scale: 1 });
+
+    gsap.to(this.titleEl, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      onComplete: () => {
+        gsap.to(this.titleEl, {
+          opacity: 0,
+          scale: 1.05,
+          delay: 2.5,
+          duration: 1.1,
+          ease: "power2.inOut",
+          onComplete: () => {
+            this.titleEl.textContent = '';
+            this.ready = true;
+          }
+        });
+      }
+    });
   }
 
   _fadeOut() {
@@ -72,7 +87,6 @@ export default class MemoryPanel {
     if (this.dim) this.dim.classList.remove('visible');
 
     this.titleEl.textContent = '';
-    this.titleEl.classList.remove('fade');
-    this.ready = true; // вдруг используешь hide вручную
+    this.ready = true;
   }
 }
