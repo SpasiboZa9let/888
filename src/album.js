@@ -4,6 +4,12 @@ const albumPhotos = [
   { src: "assets/photos/2.jpg", caption: "Тёплое солнце в июле" },
   { src: "assets/photos/3.jpg", caption: "Шумный вечер на юге" },
   { src: "assets/photos/4.jpg", caption: "Тень забытого переулка" },
+  { src: "assets/photos/5.jpg", caption: "Тень забытого переулка" },
+  { src: "assets/photos/6.jpg", caption: "Тень забытого переулка" },
+  { src: "assets/photos/7.jpg", caption: "Тень забытого переулка" },
+  { src: "assets/photos/8.jpg", caption: "Тень забытого переулка" },
+  { src: "assets/photos/9.jpg", caption: "Тень забытого переулка" },
+  { src: "assets/photos/10.jpg", caption: "Тень забытого переулка" }
 ];
 
 let currentIndex = 0;
