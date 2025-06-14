@@ -29,19 +29,15 @@ export default class MemoryPanel {
     if (!this.ready || !window.gsap) return;
     this.ready = false;
 
-    // Блокируем пины
+    // 🔒 Блокируем пины
     document.querySelectorAll('.marker').forEach(marker => {
       marker.style.pointerEvents = 'none';
     });
 
-    // Запускаем цепочку отображения
     this.queue = this.queue
-  .then(() => this._fadeOut())
-  .then(() => this._showData(data))
-  .then(() => {
-   setTimeout(() => this.hide(), 1000); // ✅ исчезнет и на мобиле
-  });
-
+      .then(() => this._fadeOut())
+      .then(() => this._showData(data));
+  }
 
   _showData(data) {
     this.img.src = data.img;
@@ -70,16 +66,11 @@ export default class MemoryPanel {
             this.titleEl.textContent = '';
             this.ready = true;
 
-            // Разблокируем пины
-            document.querySelectorAll('.marker').forEach(marker => {
-              marker.style.pointerEvents = 'auto';
-            });
-
-            // Отправляем сигнал
-            window.dispatchEvent(new CustomEvent('memoryPanelReady'));
-
-            // Автозакрытие панели
+            // ⏳ Автоматическое скрытие панели
             setTimeout(() => this.hide(), 1000);
+
+            const event = new CustomEvent('memoryPanelReady');
+            window.dispatchEvent(event);
           }
         });
       }
@@ -90,12 +81,6 @@ export default class MemoryPanel {
     return new Promise(resolve => {
       this.panel.classList.remove('visible');
       if (this.dim) this.dim.classList.remove('visible');
-
-      // Разблокируем пины
-      document.querySelectorAll('.marker').forEach(marker => {
-        marker.style.pointerEvents = 'auto';
-      });
-
       setTimeout(resolve, 250);
     });
   }
@@ -106,7 +91,7 @@ export default class MemoryPanel {
     this.titleEl.textContent = '';
     this.ready = true;
 
-    // Разблокируем пины
+    // 🔓 Разблокируем пины
     document.querySelectorAll('.marker').forEach(marker => {
       marker.style.pointerEvents = 'auto';
     });
