@@ -64,6 +64,8 @@ export default class MemoryPanel {
           onComplete: () => {
             this.titleEl.textContent = '';
             this.ready = true;
+            const event = new CustomEvent('memoryPanelReady');
+            window.dispatchEvent(event);
           }
         });
       }
