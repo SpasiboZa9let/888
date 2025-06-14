@@ -33,26 +33,6 @@
   font-style: italic;
 }
 
-#memory-panel .title-fade {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.2rem;
-  color: #2f2c28;
-  background: rgba(255, 250, 240, 0.8);
-  padding: 6px 12px;
-  border-radius: 6px;
-  opacity: 0;
-  animation: fadeInTitle 1.6s ease-out forwards;
-  pointer-events: none;
-  font-family: 'Special Elite', serif;
-}
-
-@keyframes fadeInTitle {
-  0% { opacity: 0; transform: translate(-50%, -55%); }
-  100% { opacity: 1; transform: translate(-50%, -50%); }
-}
 .memory-title {
   position: absolute;
   top: 50%;
@@ -73,11 +53,6 @@
   z-index: 10;
 }
 
-
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.05); }
-}
 @media (max-width: 767px) {
   #memory-panel {
     transform: translateY(100%);
