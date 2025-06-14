@@ -16,6 +16,8 @@ export function initMap () {
   /* 3. Запускаем прогресс-бар */
   setupProgressBar();
 }
+window.dispatchEvent(new Event('mapReady'));
+}
 
 /* ---------- ПРОГРЕСС-БАР + сохранение ---------- */
 function setupProgressBar () {
