@@ -30,7 +30,7 @@ export default class MemoryPanel {
         this.titleEl.classList.remove('fade');
         this.titleEl.textContent = '';
 
-        // Скрываем титры визуально и отключаем захват событий
+        // Отключаем титры после анимации
         this.titleEl.style.pointerEvents = 'none';
         this.titleEl.style.opacity = '0';
       }
@@ -53,15 +53,12 @@ export default class MemoryPanel {
     this.txt.textContent = data.caption || '';
     this.titleEl.textContent = data.title || '';
 
-    // Показываем панель и затемнение
     this.panel.classList.add('visible');
     if (this.dim) this.dim.classList.add('visible');
 
-    // Подготавливаем титры к анимации
+    // Включаем титры и перезапускаем анимацию
     this.titleEl.style.pointerEvents = 'auto';
     this.titleEl.style.opacity = '1';
-
-    // Перезапуск анимации титров
     this.titleEl.classList.remove('fade');
     void this.titleEl.offsetWidth;
     this.titleEl.classList.add('fade');
@@ -79,7 +76,6 @@ export default class MemoryPanel {
     this.panel.classList.remove('visible');
     if (this.dim) this.dim.classList.remove('visible');
 
-    // Очистка содержимого
     this.titleEl.textContent = '';
     this.titleEl.classList.remove('fade');
     this.titleEl.style.pointerEvents = 'none';
