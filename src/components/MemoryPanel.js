@@ -29,7 +29,6 @@ export default class MemoryPanel {
     if (!this.ready || !window.gsap) return;
     this.ready = false;
 
-    // 🔒 Блокируем пины
     document.querySelectorAll('.marker').forEach(marker => {
       marker.style.pointerEvents = 'none';
     });
@@ -81,7 +80,6 @@ export default class MemoryPanel {
     return new Promise(resolve => {
       this.panel.classList.remove('visible');
       if (this.dim) this.dim.classList.remove('visible');
-      // ✅ Разблокируем пины
       document.querySelectorAll('.marker').forEach(marker => {
         marker.style.pointerEvents = 'auto';
       });
@@ -94,7 +92,6 @@ export default class MemoryPanel {
     if (this.dim) this.dim.classList.remove('visible');
     this.titleEl.textContent = '';
     this.ready = true;
-    // ✅ Разблокируем пины
     document.querySelectorAll('.marker').forEach(marker => {
       marker.style.pointerEvents = 'auto';
     });
