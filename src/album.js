@@ -41,6 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // 🎁-индикатор и blur
     placeholder.classList.remove('hidden');
+    imgEl.classList.remove('loaded');
     imgEl.classList.add('blur-up');
     imgEl.src = src;
 
@@ -48,6 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'load',
       () => {
         imgEl.classList.remove('blur-up');
+        imgEl.classList.add('loaded');
         placeholder.classList.add('hidden');
       },
       { once: true }
