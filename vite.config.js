@@ -12,6 +12,12 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true
+  rollupOptions: {
+    input: {
+    main:  'index.html',
+    album: 'album.html',
+    start: 'start.html'   // ← если нужна ещё страница — допиши сюда
+      }
   },
 
   plugins: [
