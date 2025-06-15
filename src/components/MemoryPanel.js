@@ -1,11 +1,9 @@
-import { qs }                  from '../utils/dom.js';
-import { disablePins, enablePins } from '../index.js';   // ◀️ экспортированы в index.js
+import { qs } from '../utils/dom.js';
 
 export default class MemoryPanel {
   constructor(selector) {
     this.panel = qs(selector);
 
-    /* ── элементы ───────────────────────── */
     this.titleEl = document.createElement('div');
     this.titleEl.className = 'memory-title';
 
@@ -13,62 +11,66 @@ export default class MemoryPanel {
     this.txt = document.createElement('div');
     this.txt.className = 'text';
 
-    this.panel.append(this.titleEl, this.img, this.txt);
+    this.panel.appendChild(this.titleEl);
+    this.panel.appendChild(this.img);
+    this.panel.appendChild(this.txt);
 
-    /* ── прочее ─────────────────────────── */
-    this.dim      = document.getElementById('dim-overlay');
+    this.dim = document.getElementById('dim-overlay');
     this.isMobile = window.innerWidth < 768;
-    this.queue    = Promise.resolve();
-    this.ready    = true;
+    this.queue = Promise.resolve();
+    this.ready = true;
 
-    if (!window.gsap) console.error('GSAP is not loaded.');
+    if (!window.gsap) {
+      console.error('GSAP is not loaded.');
+    }
   }
 
-  /* ============ публичный метод ============ */
   show(data) {
     if (!this.ready || !window.gsap) return;
     this.ready = false;
 
-    disablePins();                       // 🔒 блокируем клики по пинам
+    // 🔒 Блокируем пины
+    document.querySelectorAll('.marker').forEach(marker => {
+      marker.style.pointerEvents = 'none';
+    });
 
     this.queue = this.queue
-      .then(() => this._fadeOut())       // мягко скрываем прежнюю панель
-      .then(() => this._showData(data)); // выводим новую
+      .then(() => this._fadeOut())
+      .then(() => this._showData(data));
   }
 
-  /* ============ внутреннее ============ */
-  _showData({ img, caption = '', title = '' }) {
-    this.img.src      = img;
-    this.img.alt      = caption;
-    this.txt.textContent   = caption;
-    this.titleEl.textContent = title;
+  _showData(data) {
+    this.img.src = data.img;
+    this.img.alt = data.caption || '';
+    this.txt.textContent = data.caption || '';
+    this.titleEl.textContent = data.title || '';
 
     this.panel.classList.add('visible');
-    this.dim?.classList.add('visible');
+    if (this.dim) this.dim.classList.add('visible');
 
-    /* титры анимируются GSAP ’ом */
-    gsap.set(this.titleEl, { opacity:0, y:30, scale:1 });
+    gsap.set(this.titleEl, { opacity: 0, y: 30, scale: 1 });
+
     gsap.to(this.titleEl, {
-      opacity:1,
-      y:0,
-      duration:1.2,
-      ease:'power3.out',
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power3.out',
       onComplete: () => {
         gsap.to(this.titleEl, {
-          opacity:0,
-          scale:1.05,
-          delay:2.5,
-          duration:1.1,
-          ease:'power2.inOut',
+          opacity: 0,
+          scale: 1.05,
+          delay: 2.5,
+          duration: 1.1,
+          ease: 'power2.inOut',
           onComplete: () => {
             this.titleEl.textContent = '';
             this.ready = true;
 
-            /* автоскрытие + разблокировка */
+            // ⏳ Автоматическое скрытие панели
             setTimeout(() => this.hide(), 1000);
 
-            /* уведомляем систему (прогресс-бар и т.п.) */
-            window.dispatchEvent(new CustomEvent('memoryPanelReady'));
+            const event = new CustomEvent('memoryPanelReady');
+            window.dispatchEvent(event);
           }
         });
       }
@@ -76,19 +78,22 @@ export default class MemoryPanel {
   }
 
   _fadeOut() {
-    return new Promise(res => {
+    return new Promise(resolve => {
       this.panel.classList.remove('visible');
-      this.dim?.classList.remove('visible');
-      setTimeout(res, 250);              // время CSS-transition
+      if (this.dim) this.dim.classList.remove('visible');
+      setTimeout(resolve, 250);
     });
   }
 
-  /* ============ hide() — публичное ============ */
   hide() {
     this.panel.classList.remove('visible');
-    this.dim?.classList.remove('visible');
+    if (this.dim) this.dim.classList.remove('visible');
     this.titleEl.textContent = '';
     this.ready = true;
-    enablePins();                        // 🔓 возвращаем клики
+
+    // 🔓 Разблокируем пины
+    document.querySelectorAll('.marker').forEach(marker => {
+      marker.style.pointerEvents = 'auto';
+    });
   }
 }
