@@ -1,30 +1,45 @@
+/**
+ * Альбом фотографий.
+ * Пути вычисляются динамически от расположения этого файла, поэтому
+ * код одинаково работает и в корне сайта, и в подпапке (GitHub Pages).
+ * — Шаг 1: выравниваем пути, убираем хардкод «/888/…».
+ */
+
+const baseURL = new URL('../assets/photos/', import.meta.url);
+
 const albumPhotos = [
-  { src: "/888/assets/photos/1.jpg", caption: "Первое воспоминание" },
-  { src: "/888/assets/photos/2.jpg", caption: "Тёплое солнце в июле" },
-  { src: "/888/assets/photos/3.jpg", caption: "Шумный вечер на юге" },
-  { src: "/888/assets/photos/4.jpg", caption: "Тень забытого переулка" },
-  { src: "/888/assets/photos/5.jpg", caption: "Тень забытого переулка" },
-  { src: "/888/assets/photos/6.jpg", caption: "Тень забытого переулка" },
-  { src: "/888/assets/photos/7.jpg", caption: "Тень забытого переулка" },
-  { src: "/888/assets/photos/8.jpg", caption: "Тень забытого переулка" },
-  { src: "/888/assets/photos/9.jpg", caption: "Тень забытого переулка" },
-  { src: "/888/assets/photos/10.jpg", caption: "Тень забытого переулка" }
+  { src: new URL('1.jpg',  baseURL).href, caption: 'Первое воспоминание' },
+  { src: new URL('2.jpg',  baseURL).href, caption: 'Тёплое солнце в июле' },
+  { src: new URL('3.jpg',  baseURL).href, caption: 'Шумный вечер на юге' },
+  { src: new URL('4.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
+  { src: new URL('5.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
+  { src: new URL('6.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
+  { src: new URL('7.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
+  { src: new URL('8.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
+  { src: new URL('9.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
+  { src: new URL('10.jpg', baseURL).href, caption: 'Тень забытого переулка' }
 ];
 
 let currentIndex = 0;
 
-window.addEventListener("load", () => {
-  const modal = document.getElementById("album-modal");
-  const photoEl = document.getElementById("album-photo");
-  const captionEl = document.getElementById("album-caption");
-  const albumBtn = document.getElementById("open-album");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
+window.addEventListener('DOMContentLoaded', () => {
+  /* Основные DOM-узлы */
+  const modal     = document.getElementById('album-modal');
+  const photoEl   = document.getElementById('album-photo');
+  const captionEl = document.getElementById('album-caption');
+  const albumBtn  = document.getElementById('open-album');
+  const prevBtn   = document.querySelector('.prev');
+  const nextBtn   = document.querySelector('.next');
 
   if (!modal || !photoEl || !captionEl || !prevBtn || !nextBtn) {
-    console.error("⛔ Не найдены DOM-элементы альбома.");
+    console.error('⛔ Не найдены DOM-элементы альбома.');
     return;
   }
+
+  /* Небольшая оптимизация: подсказываем браузеру, что картинку можно
+     декодировать асинхронно и подгружать лениво. */
+  photoEl.decoding = 'async';
+  photoEl.loading  = 'lazy';
 
   function showPhoto(index) {
     const photo = albumPhotos[index];
@@ -32,27 +47,28 @@ window.addEventListener("load", () => {
     captionEl.textContent = photo.caption;
   }
 
-  prevBtn.addEventListener("click", () => {
+  prevBtn.addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + albumPhotos.length) % albumPhotos.length;
     showPhoto(currentIndex);
   });
 
-  nextBtn.addEventListener("click", () => {
+  nextBtn.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % albumPhotos.length;
     showPhoto(currentIndex);
   });
 
   if (albumBtn) {
-    albumBtn.addEventListener("click", () => {
-      modal.classList.remove("hidden");
+    albumBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
       showPhoto(currentIndex);
     });
   }
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) modal.classList.add("hidden");
+  /* Закрытие по клику вне кадра */
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
   });
 
-  // Показываем первый кадр сразу
+  /* Показываем первый кадр сразу */
   showPhoto(currentIndex);
 });
