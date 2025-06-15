@@ -16,12 +16,15 @@
       <button class="prev" aria-label="предыдущее фото">←</button>
 
 <div class="photo-frame">
+  <div id="album-placeholder" class="gift-placeholder" aria-hidden="true">🎁</div>
+
   <img id="album-photo"
        class="blur-up"
        width="800" height="600"
        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3C/svg%3E"
        data-src=""
        alt="Фото альбома" />
+
   <div id="album-caption" class="caption"></div>
 </div>
 <button class="next" aria-label="следующее фото">→</button>
