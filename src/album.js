@@ -1,14 +1,14 @@
 /**
- * Альбом-карусель с предзагрузкой кадров.
+ * Фото-альбом с ленивой подгрузкой.
  *
- * ✔  🎁-плейсхолдер показывается, пока не загрузится фото
- * ✔  клик по пустому фону закрывает модалку, по кадру / стрелкам — НЕ закрывает
- * ✔  стрелки < и > листают без задержек (preload следующего кадра)
+ * ─ Пульсирующий 🎁-placeholder виден, пока кадр не загрузится.
+ * ─ Клик по оверлею (тёмному фону) закрывает; клик по кадру/стрелкам не закрывает.
+ * ─ После закрытия модалки всё состояние сбрасывается → «белый экран» не появляется.
  */
 
 import { photo } from './utils/assetPath.js';
 
-/* ---------- данные альбома ---------- */
+/* ---------- данные ---------- */
 
 const albumPhotos = Array.from({ length: 10 }, (_, i) => ({
   src: photo(`${i + 1}.jpg`),
@@ -19,30 +19,26 @@ const albumPhotos = Array.from({ length: 10 }, (_, i) => ({
               'Тень забытого переулка'
 }));
 
-/* ---------- состояние ---------- */
+let current = 0;                               // индекс показываемого кадра
 
-let current = 0;
-
-/* ---------- инициализация DOM ---------- */
+/* ---------- инициализация ---------- */
 
 window.addEventListener('DOMContentLoaded', () => {
-
-  /* ищем все узлы один раз */
   const modal       = document.getElementById('album-modal');
   const frame       = modal.querySelector('.photo-frame');
   const imgEl       = document.getElementById('album-photo');
   const capEl       = document.getElementById('album-caption');
   const prevBtn     = modal.querySelector('.prev');
   const nextBtn     = modal.querySelector('.next');
-  const openBtn     = document.getElementById('open-album');
+  const openBtn     = document.getElementById('open-album');   // кнопка на карте
   const placeholder = document.getElementById('album-placeholder');
 
-  if (!modal || !frame || !imgEl || !capEl || !prevBtn || !nextBtn) {
-    console.error('⛔ album.js: отсутствуют нужные DOM-элементы');
+  /* защита от отсутствующих узлов */
+  if (!modal || !frame || !imgEl || !capEl || !prevBtn || !nextBtn || !placeholder) {
+    console.error('⛔ album.js: не найдены DOM-элементы');
     return;
   }
 
-  /* браузеру подсказки */
   imgEl.decoding = 'async';
   imgEl.loading  = 'lazy';
 
@@ -51,29 +47,29 @@ window.addEventListener('DOMContentLoaded', () => {
   function show(idx) {
     const { src, caption } = albumPhotos[idx];
 
-    // включаем 🎁 и размытие
-    placeholder.classList.remove('hidden');
+    // сбрасываем возможное старое состояние
     imgEl.classList.add('blur-up');
+    placeholder.classList.remove('hidden');
 
-    // ставим новый src
+    // ставим новое изображение
     imgEl.src = src;
-
-    // когда загрузится — снимаем эффекты
-    imgEl.addEventListener('load', () => {
-      imgEl.classList.remove('blur-up');
-      placeholder.classList.add('hidden');
-    }, { once: true });
+    imgEl.addEventListener('load', handleLoad, { once: true });
 
     capEl.textContent = caption;
 
-    // предзагружаем следующий кадр
+    // preload следующего кадра
     new Image().src = albumPhotos[(idx + 1) % albumPhotos.length].src;
   }
 
-  /* ---------- навигация ---------- */
+  function handleLoad() {
+    imgEl.classList.remove('blur-up');
+    placeholder.classList.add('hidden');
+  }
+
+  /* ---------- навигация стрелками ---------- */
 
   prevBtn.addEventListener('click', (e) => {
-    e.stopPropagation();              // не даём всплыть до overlay
+    e.stopPropagation();        // не даём всплыть до оверлея
     current = (current + 9) % 10;
     show(current);
   });
@@ -87,18 +83,27 @@ window.addEventListener('DOMContentLoaded', () => {
   /* ---------- открытие / закрытие ---------- */
 
   openBtn?.addEventListener('click', () => {
+    resetState();               // на всякий случай
     modal.classList.remove('hidden');
     show(current);
   });
 
-  // закрываем, ТОЛЬКО если кликнули именно по фону-оверлею
+  // клик именно по фону-оверлею → закрываем
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.add('hidden');
+    if (e.target === modal) closeModal();
   });
 
-  // блокируем всплытие из любой точки кадра
+  // блокируем всплытие всех кликов из кадра
   frame.addEventListener('click', (e) => e.stopPropagation());
 
-  /* ---------- если модалка открыта по умолчанию ---------- */
-  if (!modal.classList.contains('hidden')) show(current);
+  function closeModal() {
+    modal.classList.add('hidden');
+    resetState();               // сбрасываем, чтобы при следующем открытии 🎁 снова был
+  }
+
+  function resetState() {
+    placeholder.classList.remove('hidden');
+    imgEl.classList.remove('blur-up');
+    imgEl.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="7"></svg>';
+  }
 });
