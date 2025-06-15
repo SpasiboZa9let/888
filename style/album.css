@@ -122,21 +122,20 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-/* 🎁 пульсирующий плейсхолдер */
-.gift-placeholder {
+/* ---------- плавающий смайлик-плейсхолдер ---------- */
+.smile-placeholder {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   font-size: 5rem;
-  animation: gift-pulse 1.1s infinite ease-in-out;
+  animation: smile-bounce 1.2s infinite ease-in-out;
   pointer-events: none;
   user-select: none;
 }
 
-@keyframes gift-pulse {
+@keyframes smile-bounce {
   0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.9; }
-  50%      { transform: translate(-50%, -50%) scale(1.25); opacity: 0.4; }
+  50%      { transform: translate(-50%, -60%) scale(1.20); opacity: 0.4; }
 }
-
 .hidden { display: none !important; }
 
