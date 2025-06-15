@@ -29,3 +29,8 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
+
+.blur-up {
+  filter: blur(20px);
+  transition: filter 0.6s ease-out;
+}
