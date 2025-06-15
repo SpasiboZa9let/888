@@ -1,8 +1,7 @@
 /**
- * Vite 5 конфиг без imagemin.
- * Относительные пути (base:'./') → сайт работает из подпапки GitHub Pages.
+ * Vite 5 + Rollup – конфиг с несколькими HTML-входами.
+ * Копирует album.html и start.html в dist/, так что Pages найдёт их.
  */
-
 import { defineConfig } from 'vite';
 import legacy from '@vitejs/plugin-legacy';
 
@@ -11,14 +10,16 @@ export default defineConfig({
 
   build: {
     outDir: 'dist',
-    emptyOutDir: true
-  
+    emptyOutDir: true,
+
+    // 👇 перечисляем все HTML-страницы, которые нужны в проде
     rollupOptions: {
-    input: {
-    main:  'index.html',
-    album: 'album.html',
-    start: 'start.html'   // ← если нужна ещё страница — допиши сюда
+      input: {
+        main:  'index.html',
+        album: 'album.html',
+        start: 'start.html'   // добавь другие, если появятся
       }
+    }
   },
 
   plugins: [
