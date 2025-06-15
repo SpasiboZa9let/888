@@ -13,17 +13,18 @@
     <a href="index.html" class="back-button">← Назад к карте</a>
 
     <div class="carousel">
-      <button class="prev">←</button>
-      <div class="photo-frame">
-      <img id="album-photo"
-           class="blur-up"
-           width="800" height="600"
-           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3C/svg%3E"
-           data-src=""
-           alt="Фото" />
-       </div>
-      <div class="caption" id="album-caption"></div>
-  </div>
+      <button class="prev" aria-label="предыдущее фото">←</button>
+
+<div class="photo-frame">
+  <img id="album-photo"
+       class="blur-up"
+       width="800" height="600"
+       src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3C/svg%3E"
+       data-src=""
+       alt="Фото альбома" />
+  <div id="album-caption" class="caption"></div>
+</div>
+<button class="next" aria-label="следующее фото">→</button>
 
   <script type="module" src="src/album.js"></script>
   <script type="module" src="./src/lazyload.js"></script>
