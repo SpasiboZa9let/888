@@ -5,49 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Карта воспоминаний</title>
 
-  <!-- Шрифт + все существующие стили -->
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style/base.css" />
   <link rel="stylesheet" href="style/layout.css" />
   <link rel="stylesheet" href="style/marker.css" />
   <link rel="stylesheet" href="style/panel.css" />
   <link rel="stylesheet" href="style/animations.css" />
+  <link rel="stylesheet" href="style/responsive.css" />
   <link rel="stylesheet" href="style/progress-bar.css" />
   <link rel="stylesheet" href="style/album.css" />
-  <link rel="stylesheet" href="style/start.css" />   <!-- 🆕 стиль старт-экрана -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
-
-  <!-- ===== Стартовый экран ===== -->
-  <div id="start-screen" class="start-container">
-    <h1>🗺️ Карта&nbsp;воспоминаний</h1>
-    <button id="start-button">Начать путь</button>
-    <button id="settings-button">Настройки</button>
-    <button id="album-button" class="hidden">Фотоальбом</button>
-  </div>
-
-  <!-- ===== Основное приложение (блок был раньше) ===== -->
-    <!-- ===== Основное приложение ===== -->
-  <div class="app-container hidden" id="main-app">
-    <div class="grain-overlay"></div>
-
+  <div class="grain-overlay"></div>
+  <div class="app-container">
     <div id="map"></div>
     <div id="dim-overlay"></div>
-
     <div id="progress-wrapper"><div id="progress-bar"></div></div>
-
+    <a href="album.html" id="open-album" class="album-button hidden">📖 Открыть альбом</a>
     <div id="memory-panel">
       <img src="" alt="" />
       <div class="text"></div>
     </div>
-
-    <!-- Кнопка «На старт» ДОЛЖНА быть внутри app-container -->
-    <button id="back-to-start" class="back-btn hidden">⬅ На старт</button>
-  </div> <!-- ← закрываем app-container ровно здесь -->
-
-  <!-- Стартовый контроллер -->
-  <script type="module" src="src/start.js"></script>
+  </div>
+  <script type="module" src="src/index.js"></script>
 </body>
 </html>
-
