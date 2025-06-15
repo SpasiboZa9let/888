@@ -1,63 +1,43 @@
-/**
- * Альбом фотографий.
- * Картинки лежат в public/photos/
- * import.meta.env.BASE_URL = './' при GitHub Pages → ссылки вида 'photos/1.jpg'
- */
-
-const base = import.meta.env.BASE_URL || './';
+import { photo } from './utils/assetPath.js';
 
 const albumPhotos = [
-  { src: `${base}photos/1.jpg`,  caption: 'Первое воспоминание' },
-  { src: `${base}photos/2.jpg`,  caption: 'Тёплое солнце в июле' },
-  { src: `${base}photos/3.jpg`,  caption: 'Шумный вечер на юге' },
-  { src: `${base}photos/4.jpg`,  caption: 'Тень забытого переулка' },
-  { src: `${base}photos/5.jpg`,  caption: 'Тень забытого переулка' },
-  { src: `${base}photos/6.jpg`,  caption: 'Тень забытого переулка' },
-  { src: `${base}photos/7.jpg`,  caption: 'Тень забытого переулка' },
-  { src: `${base}photos/8.jpg`,  caption: 'Тень забытого переулка' },
-  { src: `${base}photos/9.jpg`,  caption: 'Тень забытого переулка' },
-  { src: `${base}photos/10.jpg`, caption: 'Тень забытого переулка' }
+  { src: photo('1.jpg'),  caption: 'Первое воспоминание' },
+  { src: photo('2.jpg'),  caption: 'Тёплое солнце в июле' },
+  { src: photo('3.jpg'),  caption: 'Шумный вечер на юге' },
+  { src: photo('4.jpg'),  caption: 'Тень забытого переулка' },
+  { src: photo('5.jpg'),  caption: 'Тень забытого переулка' },
+  { src: photo('6.jpg'),  caption: 'Тень забытого переулка' },
+  { src: photo('7.jpg'),  caption: 'Тень забытого переулка' },
+  { src: photo('8.jpg'),  caption: 'Тень забытого переулка' },
+  { src: photo('9.jpg'),  caption: 'Тень забытого переулка' },
+  { src: photo('10.jpg'), caption: 'Тень забытого переулка' }
 ];
 
-let currentIndex = 0;
+let i = 0;
 
 window.addEventListener('DOMContentLoaded', () => {
-  const modal     = document.getElementById('album-modal');
-  const photoEl   = document.getElementById('album-photo');
-  const captionEl = document.getElementById('album-caption');
-  const albumBtn  = document.getElementById('open-album');
-  const prevBtn   = document.querySelector('.prev');
-  const nextBtn   = document.querySelector('.next');
+  const $modal   = document.getElementById('album-modal');
+  const $img     = document.getElementById('album-photo');
+  const $caption = document.getElementById('album-caption');
+  const $prev    = document.querySelector('.prev');
+  const $next    = document.querySelector('.next');
+  const $open    = document.getElementById('open-album');
 
-  if (!modal || !photoEl) {
-    console.error('⛔ Не найдены DOM-элементы альбома.');
-    return;
-  }
+  if (!$modal || !$img) return console.error('⛔ album: нет DOM-узлов');
 
-  photoEl.decoding = 'async';
-  photoEl.loading  = 'lazy';
+  $img.decoding = 'async';
+  $img.loading  = 'lazy';
 
-  function showPhoto(i) {
-    const p = albumPhotos[i];
-    photoEl.src = p.src;
-    captionEl.textContent = p.caption;
-  }
+  const show = (idx) => {
+    const p = albumPhotos[idx];
+    $img.src          = p.src;
+    $caption.textContent = p.caption;
+  };
 
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + albumPhotos.length - 1) % albumPhotos.length;
-    showPhoto(currentIndex);
-  });
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % albumPhotos.length;
-    showPhoto(currentIndex);
-  });
+  $prev.onclick = () => { i = (i + albumPhotos.length - 1) % albumPhotos.length; show(i); };
+  $next.onclick = () => { i = (i + 1) % albumPhotos.length; show(i); };
+  $open?.addEventListener('click', () => { $modal.classList.remove('hidden'); show(i); });
+  $modal.addEventListener('click', (e) => { if (e.target === $modal) $modal.classList.add('hidden'); });
 
-  albumBtn?.addEventListener('click', () => {
-    modal.classList.remove('hidden');
-    showPhoto(currentIndex);
-  });
-
-  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.add('hidden'); });
-
-  showPhoto(currentIndex);
+  show(i);
 });
