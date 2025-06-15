@@ -1,29 +1,27 @@
 /**
  * Альбом фотографий.
- * Пути вычисляются динамически от расположения этого файла, поэтому
- * код одинаково работает и в корне сайта, и в подпапке (GitHub Pages).
- * — Шаг 1: выравниваем пути, убираем хардкод «/888/…».
+ * Картинки лежат в public/photos/
+ * import.meta.env.BASE_URL = './' при GitHub Pages → ссылки вида 'photos/1.jpg'
  */
 
-const baseURL = new URL('../assets/photos/', import.meta.url);
+const base = import.meta.env.BASE_URL || './';
 
 const albumPhotos = [
-  { src: new URL('1.jpg',  baseURL).href, caption: 'Первое воспоминание' },
-  { src: new URL('2.jpg',  baseURL).href, caption: 'Тёплое солнце в июле' },
-  { src: new URL('3.jpg',  baseURL).href, caption: 'Шумный вечер на юге' },
-  { src: new URL('4.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
-  { src: new URL('5.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
-  { src: new URL('6.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
-  { src: new URL('7.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
-  { src: new URL('8.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
-  { src: new URL('9.jpg',  baseURL).href, caption: 'Тень забытого переулка' },
-  { src: new URL('10.jpg', baseURL).href, caption: 'Тень забытого переулка' }
+  { src: `${base}photos/1.jpg`,  caption: 'Первое воспоминание' },
+  { src: `${base}photos/2.jpg`,  caption: 'Тёплое солнце в июле' },
+  { src: `${base}photos/3.jpg`,  caption: 'Шумный вечер на юге' },
+  { src: `${base}photos/4.jpg`,  caption: 'Тень забытого переулка' },
+  { src: `${base}photos/5.jpg`,  caption: 'Тень забытого переулка' },
+  { src: `${base}photos/6.jpg`,  caption: 'Тень забытого переулка' },
+  { src: `${base}photos/7.jpg`,  caption: 'Тень забытого переулка' },
+  { src: `${base}photos/8.jpg`,  caption: 'Тень забытого переулка' },
+  { src: `${base}photos/9.jpg`,  caption: 'Тень забытого переулка' },
+  { src: `${base}photos/10.jpg`, caption: 'Тень забытого переулка' }
 ];
 
 let currentIndex = 0;
 
 window.addEventListener('DOMContentLoaded', () => {
-  /* Основные DOM-узлы */
   const modal     = document.getElementById('album-modal');
   const photoEl   = document.getElementById('album-photo');
   const captionEl = document.getElementById('album-caption');
@@ -31,44 +29,35 @@ window.addEventListener('DOMContentLoaded', () => {
   const prevBtn   = document.querySelector('.prev');
   const nextBtn   = document.querySelector('.next');
 
-  if (!modal || !photoEl || !captionEl || !prevBtn || !nextBtn) {
+  if (!modal || !photoEl) {
     console.error('⛔ Не найдены DOM-элементы альбома.');
     return;
   }
 
-  /* Небольшая оптимизация: подсказываем браузеру, что картинку можно
-     декодировать асинхронно и подгружать лениво. */
   photoEl.decoding = 'async';
   photoEl.loading  = 'lazy';
 
-  function showPhoto(index) {
-    const photo = albumPhotos[index];
-    photoEl.src = photo.src;
-    captionEl.textContent = photo.caption;
+  function showPhoto(i) {
+    const p = albumPhotos[i];
+    photoEl.src = p.src;
+    captionEl.textContent = p.caption;
   }
 
   prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + albumPhotos.length) % albumPhotos.length;
+    currentIndex = (currentIndex + albumPhotos.length - 1) % albumPhotos.length;
     showPhoto(currentIndex);
   });
-
   nextBtn.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % albumPhotos.length;
     showPhoto(currentIndex);
   });
 
-  if (albumBtn) {
-    albumBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      showPhoto(currentIndex);
-    });
-  }
-
-  /* Закрытие по клику вне кадра */
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.add('hidden');
+  albumBtn?.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    showPhoto(currentIndex);
   });
 
-  /* Показываем первый кадр сразу */
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.add('hidden'); });
+
   showPhoto(currentIndex);
 });
