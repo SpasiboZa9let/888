@@ -28,6 +28,27 @@ window.addEventListener('DOMContentLoaded', () => {
     const { src, caption } = albumPhotos[idx];
     imgEl.src = src;
     capEl.textContent = caption;
+    const placeholder = document.getElementById('album-placeholder');
+
+const show = (idx) => {
+  const { src, caption } = albumPhotos[idx];
+
+  placeholder.classList.remove('hidden');   // 🎁 показать
+
+  imgEl.classList.add('blur-up');
+  imgEl.src = src;
+
+  imgEl.addEventListener(
+    'load',
+    () => {
+      imgEl.classList.remove('blur-up');
+      placeholder.classList.add('hidden');  // 🎁 скрыть
+    },
+    { once: true }
+  );
+
+  capEl.textContent = caption;
+};
   };
 
   prevBtn.onclick = () => { current = (current + 9) % 10; show(current); };
