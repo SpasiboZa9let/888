@@ -1,7 +1,6 @@
-/**
- * Возвращает абсолютный URL до /photos/<file>
- * Работает локально и на GitHub Pages, потому что
- * в vite.config.js базовый префикс — "./".
- */
-export const photo = (file) =>
-  `${import.meta.env.BASE_URL || './'}photos/${file}`;
+const base =
+  (import.meta.env && import.meta.env.BASE_URL)  // есть при сборке Vite
+    ? import.meta.env.BASE_URL
+    : './';                                      // резерв на случай «сырого» скрипта
+
+export const photo = (file) => `${base}photos/${file}`;
