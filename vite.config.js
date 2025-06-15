@@ -1,23 +1,22 @@
--import { imageminPlugin } from 'vite-plugin-imagemin';
-+// (imagemin временно убрали)
+/**
+ * Vite 5 конфиг без imagemin.
+ * Относительные пути (base:'./') → сайт работает из подпапки GitHub Pages.
+ */
 
- export default defineConfig({
-   base: './',
-   build: {
-     outDir: 'dist',
-     emptyOutDir: true
-   },
-   plugins: [
-     legacy({
-       targets: ['defaults', 'not IE 11']
-     })
--    ,imageminPlugin({
--      gifsicle: { optimizationLevel: 3 },
--      mozjpeg:  { quality: 75 },
--      pngquant: { quality: [0.65, 0.85] },
--      svgo:     false,
--      webp:     { quality: 75 },
--      avif:     { quality: 50 }
--    })
-   ]
- });
+import { defineConfig } from 'vite';
+import legacy from '@vitejs/plugin-legacy';
+
+export default defineConfig({
+  base: './',
+
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true
+  },
+
+  plugins: [
+    legacy({
+      targets: ['defaults', 'not IE 11']
+    })
+  ]
+});
