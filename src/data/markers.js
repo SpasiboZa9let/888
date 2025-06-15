@@ -1,6 +1,5 @@
 import { photo } from '../utils/assetPath.js';
 
-
 export const MARKERS = [
   { x: 0.12, y: 0.28, img: photo('1.jpg'),  title: 'Свет сквозь занавески', caption: 'Ты всё ещё спишь, а я уже люблю этот день.' },
   { x: 0.21, y: 0.39, img: photo('2.jpg'),  title: 'Завтрак в полутоне',     caption: 'Молоко тёплое, как твоё плечо.' },
