@@ -15,11 +15,14 @@
     <div class="carousel">
       <button class="prev">←</button>
       <div class="photo-frame">
-        <img id="album-photo" src="" alt="Фото" />
-        <div class="caption" id="album-caption"></div>
-      </div>
-      <button class="next">→</button>
-    </div>
+      <img id="album-photo"
+           class="blur-up"
+           width="800" height="600"
+           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3C/svg%3E"
+           data-src=""
+           alt="Фото" />
+       </div>
+      <div class="caption" id="album-caption"></div>
   </div>
 
   <script type="module" src="src/album.js"></script>
