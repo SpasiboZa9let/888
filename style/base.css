@@ -29,16 +29,3 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
-.marker.disabled { pointer-events:none; }
-.back-btn{
-  position:fixed; top:1rem; right:1rem; z-index:100;
-  font-family:'Special Elite',cursive;
-  padding:0.6rem 1rem; font-size:1rem;
-  background:#fffdf0; border:1px solid #cbbca2;
-  border-radius:8px; cursor:pointer;
-  box-shadow:0 0 6px rgba(0,0,0,.15); transition:.3s;
-}
-.back-btn:hover{background:#f2ead6;}
-.hidden{display:none!important;}
-
-
