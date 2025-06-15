@@ -138,4 +138,9 @@
   50%      { transform: translate(-50%, -60%) scale(1.20); opacity: 0.4; }
 }
 .hidden { display: none !important; }
+/* пока у кадра нет класса loaded — он полностью прозрачен */
+.photo-frame img:not(.loaded) {
+  opacity: 0;
+}
+
 
