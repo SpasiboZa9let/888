@@ -27,7 +27,7 @@ function injectPinThumbnails() {
 
     const imgPath = clean.startsWith('public/photos/')
       ? clean                                         // уже с префиксом, ничего не добавляем
-      : `photos/${clean}`;                            // иначе дописываем
+      : `public/photos/${clean}`;                            // иначе дописываем
 
     pin.style.backgroundImage = `url(${imgPath})`;
   });
