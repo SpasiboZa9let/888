@@ -17,21 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ---------- мини-фото прямо в кружок булавки ---------- */
 function injectPinThumbnails() {
   const pins = document.querySelectorAll('#map .marker');
+  const base = (import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : './';
 
   pins.forEach((pin, idx) => {
     const m = MARKERS[idx];
     if (!m) return;
+    
+    const file = m.img
+      .replace(/^\.?\//, '')           // "./photos/1.jpg" → "photos/1.jpg"
+      .replace(/^photos\//, '');       // "photos/1.jpg"   → "1.jpg"
 
-    /* убираем ./ или / в начале, чтобы не запутать проверку */
-    const clean = m.img.replace(/^\.?\//, '');          // «./photos/1.jpg» -> «photos/1.jpg»
-
-    const imgPath = clean.startsWith('public/photos/')
-      ? clean                                         // уже с префиксом, ничего не добавляем
-      : `public/photos/${clean}`;                            // иначе дописываем
+    const imgPath = `${base}photos/${file}`; // "./photos/1.jpg"
 
     pin.style.backgroundImage = `url(${imgPath})`;
   });
 }
+
 
 
 /* ---------- прогресс-бар ---------- */
