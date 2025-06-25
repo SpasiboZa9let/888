@@ -25,7 +25,7 @@ function injectPinThumbnails() {
     /* убираем ./ или / в начале, чтобы не запутать проверку */
     const clean = m.img.replace(/^\.?\//, '');          // «./photos/1.jpg» -> «photos/1.jpg»
 
-    const imgPath = clean.startsWith('photos/')
+    const imgPath = clean.startsWith('public/photos/')
       ? clean                                         // уже с префиксом, ничего не добавляем
       : `photos/${clean}`;                            // иначе дописываем
 
