@@ -1,65 +1,52 @@
+/* ===== мини-фото, приколотое булавкой ===== */
 .marker {
-  width: 26px;
-  height: 26px;
   position: absolute;
-  z-index: 10;
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-  filter: sepia(0.3) contrast(0.9) brightness(0.95);
-  animation: floatPin 2s ease-in-out infinite alternate;
-}
-
-.marker::before {
-  content: "📌";
-  display: block;
-  font-size: 24px;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-}
-
-@keyframes floatPin {
-  from {
-    transform: translate(-50%, -50%) rotate(-2deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(2deg);
-  }
-}
-/* ---- булавка с прикреплённым полароидом ---- */
-.pin {
-  position: absolute;
-  transform: translate(-50%, -100%);   /* острие в точке x,y */
-  width: 12px;                         /* сама булавка */
-  height: 12px;
-  border: 2px solid #000;
-  background: #d7372f;
-  border-radius: 3px 3px 3px 0;
-  cursor: pointer;
-}
-
-/* иголка */
-.pin::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  width: 2px;
-  height: 18px;
-  background: #000;
-  transform: translateX(-50%);
-}
-
-/* полароид-миниатюра (виден ВСЕГДА) */
-.pin-thumb {
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 4px);              /* чуть ниже булавки */
+  /* остриё иглы попадает ровно в (x, y) */
+  transform: translate(-50%, -110%);
   width: 40px;
   height: 40px;
-  transform: translateX(-50%);
+
+  /* собственно мини-превью */
   background-size: cover;
   background-position: center;
-  border: 3px solid #faf8f0;          /* рамка полароида */
-  box-shadow: 0 3px 6px rgba(0,0,0,.3);
+  border: 3px solid #faf7f2;        /* «поля» полароида */
   border-radius: 4px;
-  pointer-events: none;               /* чтобы клик шёл в сам пин */
+  box-shadow: 0 4px 8px rgba(0,0,0,.35);
+
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+/* лёгкий кач при наведении (старый floatPin можно убрать) */
+.marker:hover,
+.marker:focus-visible {
+  transform: translate(-50%, -110%) scale(1.05);
+}
+
+/* круглая «головка» булавки */
+.marker::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: #d7372f;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+
+/* металлическая иголка */
+.marker::after {
+  content: '';
+  position: absolute;
+  top: 2px;                /* входит чуть под головку */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(#666, #222);
+  border-radius: 1px;
 }
