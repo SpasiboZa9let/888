@@ -1,37 +1,33 @@
-/* ===== мини-фото, приколотое булавкой ===== */
+/* ===== мини-полароид 40 × 40, приколотый булавкой ===== */
 .marker {
   position: absolute;
-  /* остриё иглы попадает ровно в (x, y) */
-  transform: translate(-50%, -110%);
+  transform: translate(-50%, -110%);          /* иголка в точке (x,y) */
   width: 40px;
   height: 40px;
-
-  /* собственно мини-превью */
   background-size: cover;
   background-position: center;
-  border: 3px solid #faf7f2;        /* «поля» полароида */
+  border: 3px solid #faf7f2;                  /* белая рамка-полароид */
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0,0,0,.35);
-
   cursor: pointer;
   transition: transform .15s ease;
 }
 
-/* лёгкий кач при наведении (старый floatPin можно убрать) */
+/* лёгкий «подпрыг» при наведении */
 .marker:hover,
 .marker:focus-visible {
   transform: translate(-50%, -110%) scale(1.05);
 }
 
-/* круглая «головка» булавки */
+/* круглая головка булавки */
 .marker::before {
   content: '';
   position: absolute;
   top: -14px;
   left: 50%;
-  transform: translateX(-50%);
   width: 16px;
   height: 16px;
+  transform: translateX(-50%);
   background: #d7372f;
   border: 2px solid #fff;
   border-radius: 50%;
@@ -42,11 +38,11 @@
 .marker::after {
   content: '';
   position: absolute;
-  top: 2px;                /* входит чуть под головку */
+  top: 2px;
   left: 50%;
-  transform: translateX(-50%);
   width: 2px;
   height: 24px;
+  transform: translateX(-50%);
   background: linear-gradient(#666, #222);
   border-radius: 1px;
 }
