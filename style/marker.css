@@ -24,3 +24,42 @@
     transform: translate(-50%, -50%) rotate(2deg);
   }
 }
+/* ---- булавка с прикреплённым полароидом ---- */
+.pin {
+  position: absolute;
+  transform: translate(-50%, -100%);   /* острие в точке x,y */
+  width: 12px;                         /* сама булавка */
+  height: 12px;
+  border: 2px solid #000;
+  background: #d7372f;
+  border-radius: 3px 3px 3px 0;
+  cursor: pointer;
+}
+
+/* иголка */
+.pin::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 2px;
+  height: 18px;
+  background: #000;
+  transform: translateX(-50%);
+}
+
+/* полароид-миниатюра (виден ВСЕГДА) */
+.pin-thumb {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 4px);              /* чуть ниже булавки */
+  width: 40px;
+  height: 40px;
+  transform: translateX(-50%);
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #faf8f0;          /* рамка полароида */
+  box-shadow: 0 3px 6px rgba(0,0,0,.3);
+  border-radius: 4px;
+  pointer-events: none;               /* чтобы клик шёл в сам пин */
+}
