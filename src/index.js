@@ -23,7 +23,7 @@ function injectPinThumbnails() {
     if (!m) return;
 
     /* подстраховка: if "1.jpg" → "photos/1.jpg" */
-    const imgPath = m.img.startsWith('photos/')
+    const imgPath = m.img.startsWith('public/photos')
       ? m.img
       : `photos/${m.img.replace(/^\.?\/*/, '')}`;
 
