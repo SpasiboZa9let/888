@@ -22,15 +22,17 @@ function injectPinThumbnails() {
     const m = MARKERS[idx];
     if (!m) return;
 
-    /* подстраховка: if "1.jpg" → "photos/1.jpg" */
-    const imgPath = m.img.startsWith('public/photos')
-      ? m.img
-      : `photos/${m.img.replace(/^\.?\/*/, '')}`;
+    /* убираем ./ или / в начале, чтобы не запутать проверку */
+    const clean = m.img.replace(/^\.?\//, '');          // «./photos/1.jpg» -> «photos/1.jpg»
+
+    const imgPath = clean.startsWith('photos/')
+      ? clean                                         // уже с префиксом, ничего не добавляем
+      : `photos/${clean}`;                            // иначе дописываем
 
     pin.style.backgroundImage = `url(${imgPath})`;
-    /* размеры/радиус теперь задаёт только CSS .marker */
   });
 }
+
 
 /* ---------- прогресс-бар ---------- */
 function setupProgressBar() {
