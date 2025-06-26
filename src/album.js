@@ -7,13 +7,13 @@ import { photo } from './utils/assetPath.js';
 
 /* ---------- данные ---------- */
 
-//const albumPhotos = Array.from({ length: 10 }, (_, i) => ({
+const albumPhotos = Array.from({ length: 10 }, (_, i) => ({
   src: photo(`${i + 1}.jpg`),
- // caption:
-   // i === 0 ? 'Первое воспоминание'      :
-  //  i === 1 ? 'Тёплое солнце в июле'     :
-  //  i === 2 ? 'Шумный вечер на юге'      :
-              'Тень забытого переулка'
+ caption:
+    i === 0 ? ''      :
+    i === 1 ? ''     :
+    i === 2 ? ''      :
+              ''
 }));
 
 let current = 0;                               // текущий кадр
