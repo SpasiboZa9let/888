@@ -1,6 +1,6 @@
 /* ---------- импорты ---------- */
 //import { MARKERS }   from './data/markers.js';
-import MapRenderer   from './components/MapRenderer.js';
+//import MapRenderer   from './components/MapRenderer.js';
 import MemoryPanel   from './components/MemoryPanel.js';
 import { drawRoute } from './utils/drawRoute.js';
 import AudioManager  from './utils/audioManager.js';
