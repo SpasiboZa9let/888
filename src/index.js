@@ -12,31 +12,26 @@ document.addEventListener('click', () => audio.initOnce(), { once: true });
 /* ---------- карта + панель ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   const panel = new MemoryPanel('#memory-panel');
-  new MapRenderer('#map', MARKERS, panel);      // пины + hover
-  drawRoute();                                  // пунктир сразу (булавки уже вставлены)
+  new MapRenderer('#map', MARKERS, panel);   // пины уже с мини-фото
+  drawRoute();                               // пунктир
 });
 
-/* ---------- всё остальное после полной загрузки ресурсов ---------- */
+/* ---------- всё остальное после полной загрузки ---------- */
 window.addEventListener('load', () => {
-  injectPinThumbnails();      // мини-фото
-  wireClickSound();           // щелчок на пинах / стрелках
-  setupProgressBar();         // индикатор просмотра
+  wireClickSound();      // кликовый звук
+  setupProgressBar();    // индикатор просмотра
 });
-
-/* ---------- мини-фото прямо в кружок ---------- */
-function injectPinThumbnails() {
-  document.querySelectorAll('#map .marker')
-    .forEach((pin, i) => pin.style.backgroundImage = `url(${MARKERS[i].img})`);
-}
 
 /* ---------- звук клика ---------- */
 function wireClickSound() {
   document.querySelectorAll('#map .marker')
     .forEach(pin => pin.addEventListener('click', () => audio.playClick()));
+
   ['.prev', '.next'].forEach(sel => {
     document.querySelector(sel)
       ?.addEventListener('click', () => audio.playClick());
   });
+
   const toggle = document.getElementById('audio-toggle');
   toggle?.addEventListener('click', () => {
     toggle.textContent = audio.toggle() ? '🔊' : '🔇';
