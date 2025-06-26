@@ -3,6 +3,11 @@ import { MARKERS }           from './data/markers.js';
 import MapRenderer           from './components/MapRenderer.js';
 import MemoryPanel           from './components/MemoryPanel.js';
 import { drawRoute }         from './utils/drawRoute.js';
+import AudioManager from './utils/audioManager.js';
+const audio = new AudioManager();
+document.addEventListener('click', () => audio.initOnce(), { once: true });
+
+
 
 /* ---------- инициализация карты ---------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,8 +37,18 @@ function injectPinThumbnails() {
     pin.style.backgroundImage = `url(${imgPath})`;
   });
 }
+function wireClickSound() {
+  /* пины на карте */
+  document.querySelectorAll('#map .marker')
+    .forEach(pin => pin.addEventListener('click', () => audio.playClick()));
 
-
+  /* стрелки в альбоме (если нужны) */
+  ['.prev', '.next'].forEach(sel => {
+    const btn = document.querySelector(sel);
+    btn?.addEventListener('click', () => audio.playClick());
+  });
+}
+wireClickSound();
 
 
 /* ---------- прогресс-бар ---------- */
