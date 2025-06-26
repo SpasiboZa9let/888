@@ -1,10 +1,12 @@
-
+/**
+ * BASE_URL подставляет Vite:
+ *   • dev-сервер → '/'
+ *   • github.io/888 → '/888/'
+ *   • cordova www  → './'
+ */
 const base =
-  (typeof import.meta !== 'undefined' &&
-   import.meta.env       &&           // import.meta.env есть ТОЛЬКО после сборки
-   import.meta.env.BASE_URL) ||       // '/888/' в готовом билде
-  './';                               // хоть что-то в сыром виде
+  (import.meta.env && import.meta.env.BASE_URL) || './';
 
-export function photo(name) {
-  return `${base}photos/${name}`;      // 👉 '/888/photos/1.jpg'
-}
+export const photo = file => `${base}photos/${file}`;
+export const audio = file => `${base}audio/${file}`;
+export const icon  = ()   => `${base}photos/favicon.ico`;
