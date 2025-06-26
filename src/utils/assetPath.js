@@ -11,5 +11,5 @@ const base = import.meta.env.BASE_URL || '/';
  * @returns {string} полный путь к ресурсу, например '/888/photos/1.jpg'
  */
 export function photo(filename) {
-  return `${base}photos/${filename}`;
+  return `./photos/${filename}`;
 }
