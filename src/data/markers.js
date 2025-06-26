@@ -1,10 +1,7 @@
 // src/data/markers.js
 import { photo } from '../utils/assetPath.js';
 
-// 1. Константа смещения по Y (нормализованные доли от высоты)
-const OFFSET_Y = 0.05;
-
-// 2. Базовый массив маркеров — без поля caption
+// Базовый массив маркеров (координаты в долях от ширины/высоты)
 const baseMarkers = [
   { x: 0.50,  y: 0.20, img: photo('1.jpg'),  title: 'Свет сквозь занавески' },
   { x: 0.659, y: 0.271,img: photo('2.jpg'),  title: 'Завтрак в полутоне' },
@@ -18,7 +15,20 @@ const baseMarkers = [
   { x: 0.341, y: 0.271,img: photo('10.jpg'), title: 'Ночная тишина' }
 ];
 
-// 3. Экспортируем финальный массив с учётом смещения
+// 1) находим максимальную исходную y
+const maxY = Math.max(...baseMarkers.map(m => m.y));
+
+// 2) вычисляем сдвиг так, чтобы маркер с maxY оказался на y = 1.0
+const AUTO_OFFSET_Y = 1 - maxY;
+
+// 3) (опционально) при желании можно добавить «дополнительное» смещение
+// const EXTRA_OFFSET = 0.02;  
+// const OFFSET_Y = AUTO_OFFSET_Y + EXTRA_OFFSET;
+
+// если EXTRA_OFFSET не нужен, просто:
+const OFFSET_Y = AUTO_OFFSET_Y;
+
+// 4) экспортируем уже скорректированный массив
 export const MARKERS = baseMarkers.map(marker => ({
   ...marker,
   y: marker.y + OFFSET_Y
