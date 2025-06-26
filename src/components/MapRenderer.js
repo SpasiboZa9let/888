@@ -1,11 +1,10 @@
-
 import { qs } from '../utils/dom.js';
 
 export default class MapRenderer {
   /**
-   * @param {string} mapSelector — селектор контейнера карты, e.g. '#map'
-   * @param {Array<{x:number,y:number,img:string,text:string}>} markers — данные точек
-   * @param {MemoryPanel} panel — панель для показа воспоминания
+   * @param {string}   mapSelector селектор контейнера карты – «#map»
+   * @param {Array<{x:number,y:number,img:string,title:string}>} markers
+   * @param {MemoryPanel} panel   панель воспоминания
    */
   constructor(mapSelector, markers, panel) {
     this.mapEl   = qs(mapSelector);
@@ -17,42 +16,44 @@ export default class MapRenderer {
       return;
     }
 
-    this._onResize = this._renderMarkers.bind(this);
+    this._onResize = () => this._renderMarkers();
     window.addEventListener('resize', this._onResize);
 
     this._renderMarkers();
   }
 
   _renderMarkers() {
+    /* чистим прежние пины */
     this.mapEl.querySelectorAll('.marker').forEach(el => el.remove());
 
     const { width, height } = this.mapEl.getBoundingClientRect();
-    const isMobile = window.innerWidth < 768;
 
     this.markers.forEach(data => {
       if (data.x < 0 || data.x > 1 || data.y < 0 || data.y > 1) {
-        console.warn("Marker out of bounds", data);
+        console.warn('Marker out of bounds', data);
         return;
       }
 
-      const el = document.createElement('div');
-      el.className = 'marker';
-      el.style.left = `${data.x * width}px`;
-      el.style.top  = `${data.y * height}px`;
-      el.style.position = 'absolute';
+      /* создаём булавку */
+      const pin = document.createElement('button');
+      pin.className = 'marker';
+      pin.style.position = 'absolute';
+      pin.style.left  = `${data.x * width}px`;
+      pin.style.top   = `${data.y * height}px`;
+      /* мини-превью сразу как фон */
+      pin.style.backgroundImage    = `url(${data.img})`;
+      pin.style.backgroundSize     = 'cover';
+      pin.style.backgroundPosition = 'center';
 
-      el.addEventListener('click', () => {
-  if (!this.panel.ready) return;
-  this.panel.show(data);
-});
+      pin.addEventListener('click', () => {
+        if (this.panel.ready) this.panel.show(data);
+      });
 
-
-      this.mapEl.appendChild(el);
+      this.mapEl.appendChild(pin);
     });
 
-    if (typeof window.setupProgressBar === 'function') {
-      window.setupProgressBar();
-    }
+    /* прогресс-бар обновится после каждого рендера */
+    window.setupProgressBar?.();
   }
 
   destroy() {
