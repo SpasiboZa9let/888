@@ -1,9 +1,14 @@
 /* src/utils/audioManager.js
    Управляет фоновым лупом и кликом-семплом */
+const base = (import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : './';
+
 export default class AudioManager {
   constructor() {
-    this.bg    = new Audio('./audio/bg.mp3');
-    this.click = new Audio('./audio/click.mp3');
+    this.bg    = new Audio(`${base}audio/bg.mp3`);
+    this.click = new Audio(`${base}audio/click.mp3`);
+    /* остальной код без изменений */
+  }
+}
 
     this.bg.loop   = true;
     this.bg.volume = 0.4;
