@@ -1,4 +1,4 @@
-import { photo } from '../utils/assetPath.js';
+import { photo } from '../utils/assetPath.js';   // добавляет ./photos/ prefix
 
 export const MARKERS = [
   { x: 0.50,  y: 0.325, img: photo('1.jpg'),  title: 'Свет сквозь занавески',   caption: 'Ты всё ещё спишь, а я уже люблю этот день.' },
