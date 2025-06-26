@@ -27,16 +27,11 @@ function injectPinThumbnails() {
     const m = MARKERS[idx];
     if (!m) return;
 
-    /* убираем ./ или / в начале, чтобы не запутать проверку */
-    const clean = m.img.replace(/^\.?\//, '');          // «./photos/1.jpg» -> «photos/1.jpg»
-
-    const imgPath = clean.startsWith('photos/')
-      ? clean                                         // уже с префиксом, ничего не добавляем
-      : `photos/${clean}`;                            // иначе дописываем
-
-    pin.style.backgroundImage = `url(${imgPath})`;
+    /* MARKERS.img уже = "./photos/1.jpg"  → используем как есть */
+    pin.style.backgroundImage = `url(${m.img})`;
   });
 }
+
 function wireClickSound() {
   /* пины на карте */
   document.querySelectorAll('#map .marker')
