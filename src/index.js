@@ -23,19 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function injectPinThumbnails() {
   const pins = document.querySelectorAll('#map .marker');
 
+  // У репозитория https://spasiboza9let.github.io/888/
+  // BASE_URL от Vite = '/888/'  → получаем 'https://…/888/'
+  const root = `${window.location.origin}${import.meta.env.BASE_URL}`;
+
   pins.forEach((pin, idx) => {
-    const m = MARKERS[idx];
-    if (!m) return;
-
-    // если путь уже содержит /photos/ — оставляем как есть
-    // иначе добавляем ровно один префикс
-    const imgPath = /\public/photos\//.test(m.img)
-      ? m.img
-      : `photos/${m.img.replace(/^\.?\/?photos\//, '').replace(/^\.?\//, '')}`;
-
+    // у тебя картинки строго 1.jpg … 10.jpg — берём по индексу
+    const imgPath = `${root}photos/${idx + 1}.jpg`;
     pin.style.backgroundImage = `url(${imgPath})`;
   });
 }
+
 
 
 function wireClickSound() {
