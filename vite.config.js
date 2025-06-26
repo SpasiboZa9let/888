@@ -2,14 +2,14 @@
 import { defineConfig } from 'vite';
 import legacy from '@vitejs/plugin-legacy';
 
-export default defineConfig({
-  // чтобы всё шло по относительным путям из той же папки, где лежит index.html
+export default defineConfig(({ mode }) => ({
+  // Cordova и локальная разработка → относительные пути
+  // GitHub Pages: перед сборкой вручную меняете на '/888/' (или свой slug)
   base: './',
 
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    // мульти-HTML-ским: собираем index.html, album.html, start.html
     rollupOptions: {
       input: {
         main:  'index.html',
@@ -20,9 +20,8 @@ export default defineConfig({
   },
 
   plugins: [
-    // оставляем только поддержку старых браузеров
     legacy({
       targets: ['defaults', 'not IE 11']
     })
   ]
-});
+}));
