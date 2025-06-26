@@ -8,6 +8,12 @@ const audio = new AudioManager();
 
 document.addEventListener('click', () => audio.initOnce(), { once: true });
 
+const btn = document.getElementById('audio-toggle');
+btn.addEventListener('click', () => {
+  const on = audio.toggle();
+  btn.textContent = on ? '🔊' : '🔇';
+});
+
 /* ---------- инициализация карты ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   const panel = new MemoryPanel('#memory-panel');
