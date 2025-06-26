@@ -1,28 +1,26 @@
-/**
- * Vite 5 + Rollup – конфиг с несколькими HTML-входами.
- * Копирует album.html и start.html в dist/, так что Pages найдёт их.
- */
+// vite.config.js
 import { defineConfig } from 'vite';
 import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
+  // чтобы всё шло по относительным путям из той же папки, где лежит index.html
   base: './',
 
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-
-    // 👇 перечисляем все HTML-страницы, которые нужны в проде
+    // мульти-HTML-ским: собираем index.html, album.html, start.html
     rollupOptions: {
       input: {
         main:  'index.html',
         album: 'album.html',
-        start: 'start.html'   // добавь другие, если появятся
+        start: 'start.html'
       }
     }
   },
 
   plugins: [
+    // оставляем только поддержку старых браузеров
     legacy({
       targets: ['defaults', 'not IE 11']
     })
