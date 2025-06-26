@@ -12,14 +12,19 @@ document.addEventListener('click', () => audio.initOnce(),
 
 /* ---------- инициализация карты ---------- */
 document.addEventListener('DOMContentLoaded', () => {
+  /* 1 — ставим панель и рендерим булавки (синхронно) */
   const panel = new MemoryPanel('#memory-panel');
-  new MapRenderer('#map', MARKERS, panel);    // пины и hover-логика
-  setTimeout(drawRoute, 100);                 // пунктир
+  new MapRenderer('#map', MARKERS, panel);
 
-  injectPinThumbnails();                      // мини-фото в кружок
-  wireClickSound();                           // кликовый семпл
-  setupProgressBar();                         // прогресс-бар
+  /* 2 — на следующий кадр инициализируем остальное */
+  requestAnimationFrame(() => {
+    injectPinThumbnails();  // мини-фото в кружок
+    wireClickSound();       // семпл клика
+    setupProgressBar();     // прогресс-бар
+    drawRoute();            // пунктир-маршрут
+  });
 });
+
 
 /* ---------- мини-фото прямо в кружок булавки ---------- */
 function injectPinThumbnails() {
