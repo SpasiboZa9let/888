@@ -29,7 +29,7 @@ function injectPinThumbnails() {
 
     // если путь уже содержит /photos/ — оставляем как есть
     // иначе добавляем ровно один префикс
-    const imgPath = /\/photos\//.test(m.img)
+    const imgPath = /\public/photos\//.test(m.img)
       ? m.img
       : `photos/${m.img.replace(/^\.?\/?photos\//, '').replace(/^\.?\//, '')}`;
 
