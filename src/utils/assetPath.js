@@ -1,15 +1,10 @@
-// src/utils/assetPath.js
 
-// Учитываем базовый URL, заданный в vite.config.js (import.meta.env.BASE_URL),
-// например '/' в режиме разработки или '/888/' при деплое на GitHub Pages.
-const base = import.meta.env.BASE_URL || '/';
+const base =
+  (typeof import.meta !== 'undefined' &&
+   import.meta.env       &&           // import.meta.env есть ТОЛЬКО после сборки
+   import.meta.env.BASE_URL) ||       // '/888/' в готовом билде
+  './';                               // хоть что-то в сыром виде
 
-/**
- * Возвращает корректный URL к фото с учётом базового пути.
- *
- * @param {string} filename — имя файла в папке public/photos
- * @returns {string} полный путь к ресурсу, например '/888/photos/1.jpg'
- */
-export function photo(filename) {
-  return `./photos/${filename}`;
+export function photo(name) {
+  return `${base}photos/${name}`;      // 👉 '/888/photos/1.jpg'
 }
