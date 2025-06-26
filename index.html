@@ -2,46 +2,51 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Карта воспоминаний</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style/base.css" />
-  <link rel="stylesheet" href="style/layout.css" />
-  <link rel="stylesheet" href="style/marker.css" />
-  <link rel="stylesheet" href="style/panel.css" />
-  <link rel="stylesheet" href="style/animations.css" />
-  <link rel="stylesheet" href="style/responsive.css" />
-  <link rel="stylesheet" href="style/progress-bar.css" />
-  <link rel="stylesheet" href="style/album.css" />
-  <link rel="icon" href="photos/favicon.ico" />
+  <!-- Все относительные URL начинаются отсюда -->
+  <base href="./">
 
-<!-- GSAP уже подключён -->
-<button id="audio-toggle" aria-label="Звук" class="audio-btn">🔊</button>
-<script type="module" src="src/index.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
+        rel="stylesheet" />
 
-  
-<!-- В КОНЦЕ ФАЙЛА -->
-<script type="module" src="src/index.js"></script>
-<script type="module" src="./src/lazyload.js"></script>
+  <!-- Стили -->
+  <link rel="stylesheet" href="./style/base.css" />
+  <link rel="stylesheet" href="./style/layout.css" />
+  <link rel="stylesheet" href="./style/marker.css" />
+  <link rel="stylesheet" href="./style/panel.css" />
+  <link rel="stylesheet" href="./style/animations.css" />
+  <link rel="stylesheet" href="./style/responsive.css" />
+  <link rel="stylesheet" href="./style/progress-bar.css" />
+  <link rel="stylesheet" href="./style/album.css" />
 
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- Иконка -->
+  <link rel="icon" href="./photos/favicon.ico" />
 </head>
+
 <body>
+  <!-- Кнопка звука, оверлейы и контейнеры -->
+  <button id="audio-toggle" aria-label="Звук" class="audio-btn">🔊</button>
   <div class="grain-overlay"></div>
   <div class="app-container">
     <div id="map"></div>
     <div id="dim-overlay"></div>
     <div id="progress-wrapper"><div id="progress-bar"></div></div>
-    <a href="album.html" id="open-album" class="album-button hidden">📖 Открыть альбом</a>
+    <a href="./album.html" id="open-album" class="album-button hidden">📖 Открыть альбом</a>
     <div id="memory-panel">
       <img src="" alt="" />
       <div class="text"></div>
     </div>
   </div>
-  <script type="module" src="src/index.js"></script>
-<script type="module" src="./src/lazyload.js"></script>
+
+  <!-- Скрипты -->
+  <!-- GSAP для анимаций -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- Логика приложения -->
+  <script type="module" src="./src/index.js"></script>
+  <script type="module" src="./src/lazyload.js"></script>
 </body>
 </html>
