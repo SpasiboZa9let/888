@@ -1,11 +1,15 @@
 // src/components/MapRenderer.js
 import { qs } from '../utils/dom.js';
 
+/**
+ * Отвечает за размещение маркеров поверх фоновой карты.
+ * Работает с нормализованными координатами (x, y ∈ [0 .. 1]).
+ */
 export default class MapRenderer {
   /**
-   * @param {string} mapSelector   селектор контейнера карты, напр. '#map'
+   * @param {string} mapSelector  селектор контейнера карты (например, '#map')
    * @param {Array<{x:number,y:number,img:string,title:string}>} markers
-   * @param {MemoryPanel} panel    панель для показа воспоминания
+   * @param {MemoryPanel} panel   объект панели воспоминаний (может быть null)
    */
   constructor(mapSelector, markers, panel) {
     this.mapEl   = qs(mapSelector);
@@ -17,64 +21,47 @@ export default class MapRenderer {
       return;
     }
 
-    // контейнер должен быть относительным, чтобы absolute-маркеры работали
+    /* контейнер нужен относительным, чтобы absolute-метки «привязывались» к нему */
     this.mapEl.style.position = 'relative';
 
-    // пересчитываем при ресайзе
+    /* пересчитываем позиции при любом ресайзе окна */
     this._onResize = this._renderMarkers.bind(this);
     window.addEventListener('resize', this._onResize);
 
     this._renderMarkers();
   }
 
-  /** рисуем все маркеры */
+  /** Создаёт и позиционирует DOM-элементы меток */
   _renderMarkers() {
-    // удаляем старые
-    this.mapEl.querySelectorAll('.marker').forEach(el => el.remove());
+    /* удаляем старые */
+    this.mapEl.querySelectorAll('.marker').forEach(n => n.remove());
 
+    /* размеры контейнера */
     const { width, height } = this.mapEl.getBoundingClientRect();
 
-    this.markers.forEach(data => {
-      if (data.x < 0 || data.x > 1 || data.y < 0 || data.y > 1) {
-        console.warn('Marker out of bounds', data);
-        return;
-      }
+    /* для каждой точки создаём div-иконку */
+    this.markers.forEach(m => {
+      if (m.x < 0 || m.x > 1 || m.y < 0 || m.y > 1) return; // фильтр на всякий
 
       const el = document.createElement('div');
       el.className = 'marker';
 
-      // размеры иконки (можно вынести в CSS)
-      const ICON_W = 48;
-      const ICON_H = 48;
+      /* позиция (center-bottom) */
+      el.style.left = `${m.x * width}px`;
+      el.style.top  = `${m.y * height}px`;
 
-      // фон-иконка или миниатюра
-      el.style.width  = `${ICON_W}px`;
-      el.style.height = `${ICON_H}px`;
-      el.style.backgroundImage    = `url(${data.img})`;
-      el.style.backgroundSize     = 'cover';
-      el.style.backgroundPosition = 'center';
+      /* фон-миниатюра */
+      el.style.backgroundImage = `url(${m.img})`;
+      el.title = m.title;
 
-      // якорим низ-по-центру точки
-      el.style.position = 'absolute';
-      el.style.left = `${data.x * width}px`;
-      el.style.top  = `${data.y * height - ICON_H}px`;   // поднять на высоту иконки
-      el.style.transform = 'translate(-50%, 0)';         // центрируем по X
-
-      el.title = data.title;   // подсказка по наведению
-
-      el.addEventListener('click', () => {
-        if (this.panel?.ready) this.panel.show(data);
-      });
+      /* клик по метке открывает панель (если её передали) */
+      el.onclick = () => this.panel?.ready && this.panel.show(m);
 
       this.mapEl.appendChild(el);
     });
-
-    // если нужен прогресс-бар
-    if (typeof window.setupProgressBar === 'function') {
-      window.setupProgressBar();
-    }
   }
 
+  /** Снять обработчики, когда карта больше не нужна */
   destroy() {
     window.removeEventListener('resize', this._onResize);
   }
