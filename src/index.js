@@ -50,6 +50,11 @@ function wireClickSound() {
 }
 wireClickSound();
 
+const btn = document.getElementById('audio-toggle');
+btn.addEventListener('click', () => {
+  const on = audio.toggle();
+  btn.textContent = on ? '🔊' : '🔇';
+});
 
 
 
