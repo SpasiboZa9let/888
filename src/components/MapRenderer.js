@@ -1,62 +1,62 @@
-import { qs } from '../utils/dom.js';
+/* ---------- импорты ---------- */
+import { MARKERS }   from './data/markers.js';
+import MapRenderer   from './components/MapRenderer.js';
+import MemoryPanel   from './components/MemoryPanel.js';
+import { drawRoute } from './utils/drawRoute.js';
+import AudioManager  from './utils/audioManager.js';
 
-export default class MapRenderer {
-  /**
-   * @param {string}   mapSelector селектор контейнера карты – «#map»
-   * @param {Array<{x:number,y:number,img:string,title:string}>} markers
-   * @param {MemoryPanel} panel   панель воспоминания
-   */
-  constructor(mapSelector, markers, panel) {
-    this.mapEl   = qs(mapSelector);
-    this.markers = markers;
-    this.panel   = panel;
+/* ---------- звук ---------- */
+const audio = new AudioManager();
+document.addEventListener('click', () => audio.initOnce(), { once: true });
 
-    if (!this.mapEl) {
-      console.error(`Map container "${mapSelector}" not found`);
-      return;
+/* ---------- карта + панель ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  const panel = new MemoryPanel('#memory-panel');
+  new MapRenderer('#map', MARKERS, panel);   // пины уже с мини-фото
+  drawRoute();                               // пунктир
+});
+
+/* ---------- всё остальное после полной загрузки ---------- */
+window.addEventListener('load', () => {
+  wireClickSound();      // кликовый звук
+  setupProgressBar();    // индикатор просмотра
+});
+
+/* ---------- звук клика ---------- */
+function wireClickSound() {
+  document.querySelectorAll('#map .marker')
+    .forEach(pin => pin.addEventListener('click', () => audio.playClick()));
+
+  ['.prev', '.next'].forEach(sel => {
+    document.querySelector(sel)
+      ?.addEventListener('click', () => audio.playClick());
+  });
+
+  const toggle = document.getElementById('audio-toggle');
+  toggle?.addEventListener('click', () => {
+    toggle.textContent = audio.toggle() ? '🔊' : '🔇';
+  });
+}
+
+/* ---------- прогресс-бар ---------- */
+function setupProgressBar() {
+  const markers = document.querySelectorAll('.marker');
+  const bar     = document.getElementById('progress-bar');
+  const album   = document.getElementById('open-album');
+  if (!markers.length || !bar) return;
+
+  const seen = new Set();
+  markers.forEach((m, i) => m.addEventListener('mouseenter', () => {
+    if (seen.has(i)) return;
+    seen.add(i);
+    bar.style.width = `${(seen.size / markers.length) * 100}%`;
+    if (seen.size === markers.length) {
+      bar.style.background =
+        'repeating-linear-gradient(135deg,#4b3621,#4b3621 4px,#7a5c3e 4px,#7a5c3e 8px)';
+      bar.style.boxShadow = '0 0 6px rgba(75,54,33,.5)';
+      bar.style.height    = '14px';
+      album?.classList.remove('hidden');
+      album?.classList.add('visible');
     }
-
-    this._onResize = () => this._renderMarkers();
-    window.addEventListener('resize', this._onResize);
-
-    this._renderMarkers();
-  }
-
-  _renderMarkers() {
-    /* чистим прежние пины */
-    this.mapEl.querySelectorAll('.marker').forEach(el => el.remove());
-
-    const { width, height } = this.mapEl.getBoundingClientRect();
-
-    this.markers.forEach(data => {
-      if (data.x < 0 || data.x > 1 || data.y < 0 || data.y > 1) {
-        console.warn('Marker out of bounds', data);
-        return;
-      }
-
-      /* создаём булавку */
-      const pin = document.createElement('button');
-      pin.className = 'marker';
-      pin.style.position = 'absolute';
-      pin.style.left  = `${data.x * width}px`;
-      pin.style.top   = `${data.y * height}px`;
-      /* мини-превью сразу как фон */
-      pin.style.backgroundImage    = `url(${data.img})`;
-      pin.style.backgroundSize     = 'cover';
-      pin.style.backgroundPosition = 'center';
-
-      pin.addEventListener('click', () => {
-        if (this.panel.ready) this.panel.show(data);
-      });
-
-      this.mapEl.appendChild(pin);
-    });
-
-    /* прогресс-бар обновится после каждого рендера */
-    window.setupProgressBar?.();
-  }
-
-  destroy() {
-    window.removeEventListener('resize', this._onResize);
-  }
+  }));
 }
