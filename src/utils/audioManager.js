@@ -1,40 +1,34 @@
-/* src/utils/audioManager.js
-   Фоновый луп + звук клика, кнопка 🔊 / 🔇 */
-
 export default class AudioManager {
   constructor() {
-    /* --- фоновый луп --- */
-    // Относительный путь → Vite сам добавит префикс base в проде,
-    // а при dev/preview будет работать как есть.
+    /* фоновый луп */
     this.bg = new Audio('./audio/bg.mp3');
     this.bg.loop   = true;
     this.bg.volume = 0.4;
 
-    /* --- звук клика --- */
+    /* семпл на клик */
     this.click = new Audio('./audio/click.mp3');
     this.click.volume = 0.8;
 
-    this.enabled = false;            // звук выключен до первого жеста
+    this.enabled = false;      // звук пока выключен
   }
 
-  /* первый пользовательский клик включает звук */
+  /* первый пользовательский клик → включаем звук */
   initOnce() {
     if (this.enabled) return;
     this.enabled = true;
-    // если autoplay заблокирован, просто игнорируем ошибку
-    this.bg.play().catch(() => {});
+    this.bg.play().catch(() => {/* браузер может задержать — ок */});
   }
 
   toggle() {
     this.enabled = !this.enabled;
-    this.enabled ? this.bg.play() : this.bg.pause();
+    if (this.enabled)  this.bg.play();
+    else               this.bg.pause();
     return this.enabled;
   }
 
   playClick() {
-    if (!this.enabled) this.initOnce();   // авто-включение при первом клике
-    if (!this.enabled) return;            // если autoplay всё ещё запрещён
-    this.click.currentTime = 0;
+    if (!this.enabled) return;
+    this.click.currentTime = 0;   // чтобы щелчок звучал каждый раз
     this.click.play().catch(() => {});
   }
 }
