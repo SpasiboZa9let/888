@@ -6,6 +6,8 @@ import { drawRoute }         from './utils/drawRoute.js';
 import AudioManager from './utils/audioManager.js';
 const audio = new AudioManager();
 
+document.addEventListener('click', () => audio.initOnce(), { once: true });
+
 
 /* ---------- инициализация карты ---------- */
 document.addEventListener('DOMContentLoaded', () => {
