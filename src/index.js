@@ -1,62 +1,67 @@
 /* ---------- импорты ---------- */
-import { MARKERS }   from './data/markers.js';
-import MapRenderer   from './components/MapRenderer.js';
-import MemoryPanel   from './components/MemoryPanel.js';
-import { drawRoute } from './utils/drawRoute.js';
-import AudioManager  from './utils/audioManager.js';
+import { MARKERS }           from './data/markers.js';
+import MapRenderer           from './components/MapRenderer.js';
+import MemoryPanel           from './components/MemoryPanel.js';
+import { drawRoute }         from './utils/drawRoute.js';
 
-/* ---------- звук ---------- */
-const audio = new AudioManager();
-document.addEventListener('click', () => audio.initOnce(), { once: true });
-
-/* ---------- карта + панель ---------- */
+/* ---------- инициализация карты ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   const panel = new MemoryPanel('#memory-panel');
-  new MapRenderer('#map', MARKERS, panel);   // пины уже с мини-фото
-  drawRoute();                               // пунктир
+  new MapRenderer('#map', MARKERS, panel);        // пины + hover-логика
+  setTimeout(drawRoute, 100);                     // дорисовать маршрут
+
+  injectPinThumbnails();                          // мини-фото в кружок
+  setupProgressBar();                             // глобал уже не нужен
 });
 
-/* ---------- всё остальное после полной загрузки ---------- */
-window.addEventListener('load', () => {
-  wireClickSound();      // кликовый звук
-  setupProgressBar();    // индикатор просмотра
-});
+/* ---------- мини-фото прямо в кружок булавки ---------- */
+function injectPinThumbnails() {
+  const pins = document.querySelectorAll('#map .marker');
 
-/* ---------- звук клика ---------- */
-function wireClickSound() {
-  document.querySelectorAll('#map .marker')
-    .forEach(pin => pin.addEventListener('click', () => audio.playClick()));
+  pins.forEach((pin, idx) => {
+    const m = MARKERS[idx];
+    if (!m) return;
 
-  ['.prev', '.next'].forEach(sel => {
-    document.querySelector(sel)
-      ?.addEventListener('click', () => audio.playClick());
-  });
+    /* убираем ./ или / в начале, чтобы не запутать проверку */
+    const clean = m.img.replace(/^\.?\//, '');          // «./photos/1.jpg» -> «photos/1.jpg»
 
-  const toggle = document.getElementById('audio-toggle');
-  toggle?.addEventListener('click', () => {
-    toggle.textContent = audio.toggle() ? '🔊' : '🔇';
+    const imgPath = clean.startsWith('photos/')
+      ? clean                                         // уже с префиксом, ничего не добавляем
+      : `photos/${clean}`;                            // иначе дописываем
+
+    pin.style.backgroundImage = `url(${imgPath})`;
   });
 }
 
+
+
+
 /* ---------- прогресс-бар ---------- */
 function setupProgressBar() {
-  const markers = document.querySelectorAll('.marker');
-  const bar     = document.getElementById('progress-bar');
-  const album   = document.getElementById('open-album');
-  if (!markers.length || !bar) return;
+  const markers     = document.querySelectorAll('.marker');
+  const progressBar = document.getElementById('progress-bar');
+  const albumBtn    = document.getElementById('open-album');
+  if (!markers.length || !progressBar) return;
 
-  const seen = new Set();
-  markers.forEach((m, i) => m.addEventListener('mouseenter', () => {
-    if (seen.has(i)) return;
-    seen.add(i);
-    bar.style.width = `${(seen.size / markers.length) * 100}%`;
-    if (seen.size === markers.length) {
-      bar.style.background =
-        'repeating-linear-gradient(135deg,#4b3621,#4b3621 4px,#7a5c3e 4px,#7a5c3e 8px)';
-      bar.style.boxShadow = '0 0 6px rgba(75,54,33,.5)';
-      bar.style.height    = '14px';
-      album?.classList.remove('hidden');
-      album?.classList.add('visible');
-    }
-  }));
+  const viewed = new Set();
+
+  markers.forEach((marker, idx) => {
+    marker.addEventListener('mouseenter', () => {
+      if (viewed.has(idx)) return;
+
+      viewed.add(idx);
+      progressBar.style.width =
+        `${(viewed.size / markers.length) * 100}%`;
+
+      if (viewed.size === markers.length) {
+        progressBar.style.background =
+          'repeating-linear-gradient(135deg,#4b3621,#4b3621 4px,#7a5c3e 4px,#7a5c3e 8px)';
+        progressBar.style.boxShadow = '0 0 6px rgba(75,54,33,.5)';
+        progressBar.style.height = '14px';
+
+        albumBtn?.classList.remove('hidden');
+        albumBtn?.classList.add('visible');
+      }
+    });
+  });
 }
